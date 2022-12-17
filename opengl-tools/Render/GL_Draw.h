@@ -10,6 +10,6 @@
 #define GL_Draw_h
 #include "Vertex.h"
 
-void DrawMesh(MeshDetails* mesh);
+void DrawMesh(MeshDetails& mesh);
 
 #endif /* GL_Draw_h */

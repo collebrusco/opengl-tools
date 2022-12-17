@@ -74,7 +74,7 @@ uint32_t UploadTexture(string name, bool pixelated){
     return texSlot;
 }
 
-
+#include <iostream>
  MeshDetails UploadMesh(const Mesh& mesh){
     const vector<Vertex>& verts = mesh.verticies;
     const vector<uint32_t>& elem = mesh.elements;
@@ -85,7 +85,6 @@ uint32_t UploadTexture(string name, bool pixelated){
     uint32_t VAO, VBO, EBO;
     
     glGenVertexArrays(1, &VAO);
-    //cout << VAO << endl;
     glBindVertexArray(VAO);
     
     glGenBuffers(1, &VBO);

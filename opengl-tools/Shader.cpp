@@ -35,7 +35,6 @@ const char* Shader::getShaderSource(string shad, string type){
 bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
     bool flag = true;
     const char* vSource = getShaderSource(vFileName, "vert");
-    
     GLuint vShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vShader, 1, &vSource, NULL);
     glCompileShader(vShader);

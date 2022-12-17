@@ -48,10 +48,10 @@
 		4CD19055294D613C00DE4753 /* Window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		4CD19056294D645600DE4753 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		4CD19057294D645600DE4753 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
-		4CD19059294D645600DE4753 /* vert shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vert shader.glsl"; sourceTree = "<group>"; };
-		4CD1905A294D645600DE4753 /* frag shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "frag shader.glsl"; sourceTree = "<group>"; };
-		4CD1905B294D645600DE4753 /* frag shader UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "frag shader UI.glsl"; sourceTree = "<group>"; };
-		4CD1905C294D645600DE4753 /* vert shader UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vert shader UI.glsl"; sourceTree = "<group>"; };
+		4CD19059294D645600DE4753 /* vert_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vert_shader.glsl; sourceTree = "<group>"; };
+		4CD1905A294D645600DE4753 /* frag_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = frag_shader.glsl; sourceTree = "<group>"; };
+		4CD1905B294D645600DE4753 /* frag_shader_UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = frag_shader_UI.glsl; sourceTree = "<group>"; };
+		4CD1905C294D645600DE4753 /* vert_shader_UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vert_shader_UI.glsl; sourceTree = "<group>"; };
 		4CD1905F294D6CB500DE4753 /* Vertex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vertex.cpp; sourceTree = "<group>"; };
 		4CD19061294D6CBE00DE4753 /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		4CF98EE1294D820D007358FF /* GL_Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL_Loader.h; sourceTree = "<group>"; };
@@ -61,6 +61,8 @@
 		4CF98EEB294D8F2D007358FF /* Meshes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Meshes.h; sourceTree = "<group>"; };
 		4CF98EEC294D91A6007358FF /* GL_Draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL_Draw.h; sourceTree = "<group>"; };
 		4CF98EED294D91A6007358FF /* GL_Draw.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GL_Draw.cpp; sourceTree = "<group>"; };
+		4CF98EEF294D98EC007358FF /* basic_frag_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_frag_shader.glsl; sourceTree = "<group>"; };
+		4CF98EF0294D98EC007358FF /* basic_vert_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_vert_shader.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,10 +133,12 @@
 		4CD19058294D645600DE4753 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				4CD19059294D645600DE4753 /* vert shader.glsl */,
-				4CD1905A294D645600DE4753 /* frag shader.glsl */,
-				4CD1905B294D645600DE4753 /* frag shader UI.glsl */,
-				4CD1905C294D645600DE4753 /* vert shader UI.glsl */,
+				4CF98EEF294D98EC007358FF /* basic_frag_shader.glsl */,
+				4CF98EF0294D98EC007358FF /* basic_vert_shader.glsl */,
+				4CD19059294D645600DE4753 /* vert_shader.glsl */,
+				4CD1905A294D645600DE4753 /* frag_shader.glsl */,
+				4CD1905B294D645600DE4753 /* frag_shader_UI.glsl */,
+				4CD1905C294D645600DE4753 /* vert_shader_UI.glsl */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
