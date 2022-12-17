@@ -12,8 +12,6 @@
 #include <chrono>
 #include <ctime>
 
-
-
 static std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
 static auto duration = now.time_since_epoch();
 static auto nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(duration);

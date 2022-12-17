@@ -62,10 +62,11 @@
 		4CF98EEB294D8F2D007358FF /* Meshes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Meshes.h; sourceTree = "<group>"; };
 		4CF98EEC294D91A6007358FF /* GL_Draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL_Draw.h; sourceTree = "<group>"; };
 		4CF98EED294D91A6007358FF /* GL_Draw.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GL_Draw.cpp; sourceTree = "<group>"; };
-		4CF98EEF294D98EC007358FF /* basic_frag_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_frag_shader.glsl; sourceTree = "<group>"; };
+		4CF98EEF294D98EC007358FF /* noise_frag_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = noise_frag_shader.glsl; sourceTree = "<group>"; };
 		4CF98EF0294D98EC007358FF /* basic_vert_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_vert_shader.glsl; sourceTree = "<group>"; };
 		4CF98EF2294DA7A9007358FF /* f_time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = f_time.h; sourceTree = "<group>"; };
 		4CF98EF3294DA7A9007358FF /* f_time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = f_time.cpp; sourceTree = "<group>"; };
+		4CF98EF6294DD4D4007358FF /* single_color_frag_shader.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = single_color_frag_shader.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,12 +138,13 @@
 		4CD19058294D645600DE4753 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				4CF98EEF294D98EC007358FF /* basic_frag_shader.glsl */,
+				4CF98EEF294D98EC007358FF /* noise_frag_shader.glsl */,
 				4CF98EF0294D98EC007358FF /* basic_vert_shader.glsl */,
 				4CD19059294D645600DE4753 /* vert_shader.glsl */,
 				4CD1905A294D645600DE4753 /* frag_shader.glsl */,
 				4CD1905B294D645600DE4753 /* frag_shader_UI.glsl */,
 				4CD1905C294D645600DE4753 /* vert_shader_UI.glsl */,
+				4CF98EF6294DD4D4007358FF /* single_color_frag_shader.glsl */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
