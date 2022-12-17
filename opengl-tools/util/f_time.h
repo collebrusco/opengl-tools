@@ -11,22 +11,18 @@
 #include <chrono>
 #include <ctime>
 namespace ftime {
-    double nanos();
-    double micros();
-    double millis();
-    double seconds();
 enum TimeUnit {
     SECONDS = 1000000000,
     MILLISECONDS = 1000000,
     MICROSECONDS = 1000,
     NANOSECONDS = 1
 };
-}
-
+double since_launch(TimeUnit);          // return time since launch
 // stopwatch
-void stopwatch_start();
-double stopwatch_stop(ftime::TimeUnit);
-double stopwatch_read(ftime::TimeUnit);
+void stopwatch_start();                 // start stopwatch
+double stopwatch_stop(ftime::TimeUnit); // stop & read stopwatch
+double stopwatch_read(ftime::TimeUnit); // read stopwatch, safe even after stop
+}
 
 
 #endif /* f_time_h */

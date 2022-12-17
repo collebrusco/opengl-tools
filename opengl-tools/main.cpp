@@ -40,14 +40,14 @@ int main(int argc, const char * argv[]) {
     MeshDetails tileMeshDetails = UploadMesh(TileMesh);
     testShader.bind();
     // Main Loop
-    stopwatch_start();
+    ftime::stopwatch_start();
     while(!glfwWindowShouldClose(window.handle)){
         glfwWaitEventsTimeout(1.0 / 120.0);
         glClear(GL_COLOR_BUFFER_BIT);
         DrawMesh(tileMeshDetails);
         window.update();
         cout << 1 / stopwatch_stop(ftime::SECONDS) << " FPS\n";
-        stopwatch_start();
+        ftime::stopwatch_start();
     }
     cout << "window closed!\n";
     glfwTerminate();

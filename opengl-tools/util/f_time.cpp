@@ -18,37 +18,30 @@ static auto duration = now.time_since_epoch();
 static auto nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
 static double epoch_to_launch_nanos = nanoseconds.count();
 
-double ftime::nanos(){
+static double nanos(){
     now = std::chrono::system_clock::now();
     duration = now.time_since_epoch();
     nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
     return (double)nanoseconds.count() - epoch_to_launch_nanos;
 }
-double ftime::micros(){
-    return nanos() / 1000;
-}
-double ftime::millis(){
-    return nanos() / 1000000;
-}
-double ftime::seconds(){
-    return nanos() / 1000000000;
-}
-
 static double stopwatch_start_time = 0;
 static double stopwatch_stop_time = 0;
 static bool stopwatch_running = false;
-void stopwatch_start(){
-    stopwatch_running = true;
-    stopwatch_start_time = ftime::nanos();
+double ftime::since_launch(ftime::TimeUnit u){
+    return nanos() / (double)u;
 }
-double stopwatch_stop(ftime::TimeUnit u){
+void ftime::stopwatch_start(){
+    stopwatch_running = true;
+    stopwatch_start_time = nanos();
+}
+double ftime::stopwatch_stop(ftime::TimeUnit u){
     stopwatch_running = false;
-    stopwatch_stop_time = ftime::nanos();
+    stopwatch_stop_time = nanos();
     return (stopwatch_stop_time - stopwatch_start_time) / (double)u;
 }
-double stopwatch_read(ftime::TimeUnit u){
+double ftime::stopwatch_read(ftime::TimeUnit u){
     if (stopwatch_running){
-        return (ftime::nanos() - stopwatch_start_time) / (double)u;
+        return (nanos() - stopwatch_start_time) / (double)u;
     }
     return (stopwatch_stop_time - stopwatch_start_time) / (double)u;
 }
