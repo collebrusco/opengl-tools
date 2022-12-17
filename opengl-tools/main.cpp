@@ -26,44 +26,20 @@
 #include "util/f_time.h"
 using namespace std;
 
-Shader testShader;
 #include <iostream>
 
-MeshDetails UploadTileMesh(){
-    vector<Vertex> sqVertices(8);
-                sqVertices.at(0).pos = glm::vec3(-0.5f, 0.5f, 0.f);
-                sqVertices.at(0).UV = glm::vec2(0.0f, 1.0f);
-                sqVertices.at(1).pos = glm::vec3(0.5f, 0.5f, 0.0f);
-                sqVertices.at(1).UV = glm::vec2(1.0f, 1.0f);
-                sqVertices.at(2).pos = glm::vec3(-0.5f, -0.5f, 0.0f);
-                sqVertices.at(2).UV = glm::vec2(0.0f, 0.0f);
-                sqVertices.at(3).pos = glm::vec3(0.5f, -0.5f, 0.0f);
-                sqVertices.at(3).UV = glm::vec2(1.0f, 0.0f);
-
-    vector<uint32_t> elems(6);
-    elems = {
-                0, 3, 2,
-                0, 1, 3
-            };
-    return UploadMesh(Mesh(sqVertices,elems, TRIANGLES));
-}
 
 
 int main(int argc, const char * argv[]) {
-    testShader.compileAndLink("basic_vert_shader", "basic_frag_shader");
+    Shader testShader("basic_vert_shader", "basic_frag_shader");
     glClearColor(200.0 / 255.0, 140.0 / 255.0, 80.0 / 255.0, 0.f);
     
     //TODO: vsync causes mysterious left mouse bug...
-    glfwSwapInterval(0);
+    glfwSwapInterval(1);
     
-    MeshDetails tileMeshDetails = UploadTileMesh();
-//    MeshDetails tileMeshDetails = UploadMesh(TileMesh);
+    MeshDetails tileMeshDetails = UploadMesh(TileMesh);
     testShader.bind();
     // Main Loop
-    GLenum er = glGetError();
-    if (er != GL_NO_ERROR){
-        cout << er << "\n";
-    }
     stopwatch_start();
     while(!glfwWindowShouldClose(window.handle)){
         glfwWaitEventsTimeout(1.0 / 120.0);
