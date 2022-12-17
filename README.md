@@ -13,3 +13,10 @@ So far, this template includes:
 * Construct with vertex and fragment shader filenames or call .compileAndLink(vertFileName, fragFileName)
 * Filenames are handled as so: "Shaders/" + filename + ".glsl"; Change this if you want a different scheme
 * bind with bind(), upload uniforms with one of the many uniform upload methods
+## GL_Loader.cpp
+* Functions to upload textures and meshes (VAOs) to GPU
+* Call UploadMesh with vector of verticies, vec of elements, and draw type (lines or triangles)
+* Returns MeshDetails object that has all info about mesh needed to render, this is passed to draw function
+* Vertecies have a 3-dimensional position and 2-dimensional UV coords (locations on texture) see Vertex.h
+* Call UploadTexture with name of file (handled as "assets/" + name + ".png") and whether it's to be pixelated
+* Returns integer texture slot
