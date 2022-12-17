@@ -20,6 +20,7 @@
 		4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1905F294D6CB500DE4753 /* Vertex.cpp */; };
 		4CF98EE3294D820D007358FF /* GL_Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF98EE2294D820D007358FF /* GL_Loader.cpp */; };
 		4CF98EEE294D91A6007358FF /* GL_Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF98EED294D91A6007358FF /* GL_Draw.cpp */; };
+		4CF98EF4294DA7A9007358FF /* f_time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF98EF3294DA7A9007358FF /* f_time.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +64,8 @@
 		4CF98EED294D91A6007358FF /* GL_Draw.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GL_Draw.cpp; sourceTree = "<group>"; };
 		4CF98EEF294D98EC007358FF /* basic_frag_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_frag_shader.glsl; sourceTree = "<group>"; };
 		4CF98EF0294D98EC007358FF /* basic_vert_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_vert_shader.glsl; sourceTree = "<group>"; };
+		4CF98EF2294DA7A9007358FF /* f_time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = f_time.h; sourceTree = "<group>"; };
+		4CF98EF3294DA7A9007358FF /* f_time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = f_time.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,7 @@
 		4CD1903C294D606600DE4753 /* opengl-tools */ = {
 			isa = PBXGroup;
 			children = (
+				4CF98EF1294DA773007358FF /* util */,
 				4CF98EE9294D84AE007358FF /* assets */,
 				4CF98EE4294D82D4007358FF /* lib */,
 				4CD1905E294D6C6D00DE4753 /* Render */,
@@ -189,6 +193,15 @@
 			path = assets;
 			sourceTree = "<group>";
 		};
+		4CF98EF1294DA773007358FF /* util */ = {
+			isa = PBXGroup;
+			children = (
+				4CF98EF3294DA7A9007358FF /* f_time.cpp */,
+				4CF98EF2294DA7A9007358FF /* f_time.h */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -249,6 +262,7 @@
 				4CF98EEE294D91A6007358FF /* GL_Draw.cpp in Sources */,
 				4CD1903E294D606600DE4753 /* main.cpp in Sources */,
 				4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */,
+				4CF98EF4294DA7A9007358FF /* f_time.cpp in Sources */,
 				4CD1905D294D645600DE4753 /* Shader.cpp in Sources */,
 				4CF98EE3294D820D007358FF /* GL_Loader.cpp in Sources */,
 				4CD19054294D612E00DE4753 /* Window.cpp in Sources */,

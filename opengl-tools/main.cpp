@@ -23,6 +23,7 @@
 #include "Render/GL_Loader.h"
 #include "Render/GL_Draw.h"
 #include "Shader.h"
+#include "util/f_time.h"
 using namespace std;
 
 Shader testShader;
@@ -47,6 +48,7 @@ MeshDetails UploadTileMesh(){
     return UploadMesh(Mesh(sqVertices,elems, TRIANGLES));
 }
 
+
 int main(int argc, const char * argv[]) {
     testShader.compileAndLink("basic_vert_shader", "basic_frag_shader");
     glClearColor(200.0 / 255.0, 140.0 / 255.0, 80.0 / 255.0, 0.f);
@@ -62,11 +64,14 @@ int main(int argc, const char * argv[]) {
     if (er != GL_NO_ERROR){
         cout << er << "\n";
     }
+    stopwatch_start();
     while(!glfwWindowShouldClose(window.handle)){
         glfwWaitEventsTimeout(1.0 / 120.0);
         glClear(GL_COLOR_BUFFER_BIT);
         DrawMesh(tileMeshDetails);
         window.update();
+        cout << 1 / stopwatch_stop(ftime::SECONDS) << " FPS\n";
+        stopwatch_start();
     }
     cout << "window closed!\n";
     glfwTerminate();
