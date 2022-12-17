@@ -12,7 +12,7 @@
 #include "Vertex.h"
 #include <string>
 
-uint32_t UploadTexture(std::string name);
+uint32_t UploadTexture(std::string name, bool pixelated);
 
 MeshDetails UploadMesh(const std::vector<Vertex>& verts, const std::vector<uint32_t> elem, std::string type);
 

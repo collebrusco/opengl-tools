@@ -24,8 +24,7 @@ using namespace std;
 using namespace glm;
 
 static uint32_t textureSlotsInUse = 0;
-uint32_t UploadTexture(string name){
-    bool pixelated = true;
+uint32_t UploadTexture(string name, bool pixelated){
     int w, h, c;
     uint32_t textureId;
     string path = "assets/" + name + ".png";
