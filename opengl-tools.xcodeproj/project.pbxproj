@@ -17,6 +17,7 @@
 		4CD19052294D60CC00DE4753 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD19051294D60CC00DE4753 /* libglfw.3.3.dylib */; };
 		4CD19054294D612E00DE4753 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD19053294D612E00DE4753 /* Window.cpp */; };
 		4CD1905D294D645600DE4753 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD19056294D645600DE4753 /* Shader.cpp */; };
+		4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1905F294D6CB500DE4753 /* Vertex.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,7 +34,7 @@
 
 /* Begin PBXFileReference section */
 		4CD1903A294D606600DE4753 /* opengl-tools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "opengl-tools"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CD1903D294D606600DE4753 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4CD1903D294D606600DE4753 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		4CD19045294D609D00DE4753 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4CD19047294D60A200DE4753 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4CD19049294D60AA00DE4753 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -49,6 +50,8 @@
 		4CD1905A294D645600DE4753 /* frag shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "frag shader.glsl"; sourceTree = "<group>"; };
 		4CD1905B294D645600DE4753 /* frag shader UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "frag shader UI.glsl"; sourceTree = "<group>"; };
 		4CD1905C294D645600DE4753 /* vert shader UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vert shader UI.glsl"; sourceTree = "<group>"; };
+		4CD1905F294D6CB500DE4753 /* Vertex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vertex.cpp; sourceTree = "<group>"; };
+		4CD19061294D6CBE00DE4753 /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,7 @@
 		4CD1903C294D606600DE4753 /* opengl-tools */ = {
 			isa = PBXGroup;
 			children = (
+				4CD1905E294D6C6D00DE4753 /* Render */,
 				4CD19056294D645600DE4753 /* Shader.cpp */,
 				4CD19057294D645600DE4753 /* Shader.h */,
 				4CD19058294D645600DE4753 /* Shaders */,
@@ -122,6 +126,15 @@
 				4CD1905C294D645600DE4753 /* vert shader UI.glsl */,
 			);
 			path = Shaders;
+			sourceTree = "<group>";
+		};
+		4CD1905E294D6C6D00DE4753 /* Render */ = {
+			isa = PBXGroup;
+			children = (
+				4CD1905F294D6CB500DE4753 /* Vertex.cpp */,
+				4CD19061294D6CBE00DE4753 /* Vertex.h */,
+			);
+			path = Render;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CD1903E294D606600DE4753 /* main.cpp in Sources */,
+				4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */,
 				4CD1905D294D645600DE4753 /* Shader.cpp in Sources */,
 				4CD19054294D612E00DE4753 /* Window.cpp in Sources */,
 			);
@@ -302,6 +316,7 @@
 		4CD19042294D606600DE4753 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
@@ -314,18 +329,19 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
-					/usr/local/Cellar/glfw/../lib,
 					/opt/homebrew/Cellar/glfw/3.3.7/lib,
 					/opt/homebrew/Cellar/glm/0.9.9.8/lib,
 					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = OpenGL;
 			};
 			name = Debug;
 		};
 		4CD19043294D606600DE4753 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
@@ -338,12 +354,12 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
-					/usr/local/Cellar/glfw/../lib,
 					/opt/homebrew/Cellar/glfw/3.3.7/lib,
 					/opt/homebrew/Cellar/glm/0.9.9.8/lib,
 					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = OpenGL;
 			};
 			name = Release;
 		};
