@@ -75,7 +75,9 @@ uint32_t UploadTexture(string name, bool pixelated){
 }
 
 
- MeshDetails UploadMesh(const vector<Vertex>& verts, const vector<uint32_t> elem, DrawType_t type){
+ MeshDetails UploadMesh(Mesh mesh){
+    const vector<Vertex>& verts = mesh.verticies;
+    const vector<uint32_t>& elem = mesh.elements;
     if (verts.empty() || elem.empty()){
         throw("empty vectors!");
     }
@@ -106,7 +108,7 @@ uint32_t UploadTexture(string name, bool pixelated){
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
     
-    return MeshDetails(VAO, elem.size()&0xFFFFFFFF, type);
+    return MeshDetails(VAO, elem.size()&0xFFFFFFFF, mesh.type);
 }
 
 

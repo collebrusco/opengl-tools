@@ -8,6 +8,7 @@
 #ifndef Vertex_h
 #define Vertex_h
 
+#include <vector>
 #define GLM_FORCE_SWIZZLE
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp> // glm::vec3
@@ -22,6 +23,12 @@ struct Vertex {
     Vertex(glm::vec3, glm::vec2);
     glm::vec3 pos;
     glm::vec2 UV;
+};
+
+struct Mesh {
+    const std::vector<Vertex> verticies;
+    const std::vector<uint32_t> elements;
+    DrawType_t type;
 };
 
 struct MeshDetails {
