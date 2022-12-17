@@ -23,6 +23,9 @@ Vertex::Vertex(glm::vec3 p, glm::vec2 uv){
     UV = uv;
 }
 
+Mesh::Mesh(const std::vector<Vertex>& vs, const std::vector<uint32_t>& ems, DrawType_t t) : verticies(vs), elements(ems) {
+    type = t;
+}
 
 MeshDetails::MeshDetails(){
     vao = numElements = 0;

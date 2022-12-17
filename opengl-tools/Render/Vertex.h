@@ -25,10 +25,12 @@ struct Vertex {
     glm::vec2 UV;
 };
 
+// Use this to create meshes
 struct Mesh {
-    const std::vector<Vertex> verticies;
-    const std::vector<uint32_t> elements;
+    const std::vector<Vertex>& verticies;
+    const std::vector<uint32_t>& elements;
     DrawType_t type;
+    Mesh(const std::vector<Vertex>& vs, const std::vector<uint32_t>& ems, DrawType_t t);
 };
 
 struct MeshDetails {

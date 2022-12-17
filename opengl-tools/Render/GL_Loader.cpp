@@ -75,7 +75,7 @@ uint32_t UploadTexture(string name, bool pixelated){
 }
 
 
- MeshDetails UploadMesh(Mesh mesh){
+ MeshDetails UploadMesh(const Mesh& mesh){
     const vector<Vertex>& verts = mesh.verticies;
     const vector<uint32_t>& elem = mesh.elements;
     if (verts.empty() || elem.empty()){
