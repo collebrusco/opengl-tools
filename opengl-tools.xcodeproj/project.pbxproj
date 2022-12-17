@@ -16,6 +16,7 @@
 		4CD19050294D60B400DE4753 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD1904F294D60B400DE4753 /* AppKit.framework */; };
 		4CD19052294D60CC00DE4753 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD19051294D60CC00DE4753 /* libglfw.3.3.dylib */; };
 		4CD19054294D612E00DE4753 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD19053294D612E00DE4753 /* Window.cpp */; };
+		4CD1905D294D645600DE4753 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD19056294D645600DE4753 /* Shader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,12 @@
 		4CD19051294D60CC00DE4753 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../opt/homebrew/Cellar/glfw/3.3.7/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		4CD19053294D612E00DE4753 /* Window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		4CD19055294D613C00DE4753 /* Window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		4CD19056294D645600DE4753 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		4CD19057294D645600DE4753 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		4CD19059294D645600DE4753 /* vert shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vert shader.glsl"; sourceTree = "<group>"; };
+		4CD1905A294D645600DE4753 /* frag shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "frag shader.glsl"; sourceTree = "<group>"; };
+		4CD1905B294D645600DE4753 /* frag shader UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "frag shader UI.glsl"; sourceTree = "<group>"; };
+		4CD1905C294D645600DE4753 /* vert shader UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vert shader UI.glsl"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +89,9 @@
 		4CD1903C294D606600DE4753 /* opengl-tools */ = {
 			isa = PBXGroup;
 			children = (
+				4CD19056294D645600DE4753 /* Shader.cpp */,
+				4CD19057294D645600DE4753 /* Shader.h */,
+				4CD19058294D645600DE4753 /* Shaders */,
 				4CD1903D294D606600DE4753 /* main.cpp */,
 				4CD19053294D612E00DE4753 /* Window.cpp */,
 				4CD19055294D613C00DE4753 /* Window.h */,
@@ -101,6 +111,17 @@
 				4CD19045294D609D00DE4753 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4CD19058294D645600DE4753 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				4CD19059294D645600DE4753 /* vert shader.glsl */,
+				4CD1905A294D645600DE4753 /* frag shader.glsl */,
+				4CD1905B294D645600DE4753 /* frag shader UI.glsl */,
+				4CD1905C294D645600DE4753 /* vert shader UI.glsl */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CD1903E294D606600DE4753 /* main.cpp in Sources */,
+				4CD1905D294D645600DE4753 /* Shader.cpp in Sources */,
 				4CD19054294D612E00DE4753 /* Window.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
