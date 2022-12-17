@@ -20,3 +20,10 @@ So far, this template includes:
 * Vertecies have a 3-dimensional position and 2-dimensional UV coords (locations on texture) see Vertex.h
 * Call UploadTexture with name of file (handled as "assets/" + name + ".png") and whether it's to be pixelated
 * Returns integer texture slot
+## GL_Draw.cpp
+* DrawMesh function takes MeshDetails reference and renders it
+## f_time.cpp
+* utility functions for timing things, ftime:: namespace
+* call since_launch() with time unit (see header) for time since launch
+* call stopwatch_start() to start an uptimer
+* call stopwatch_stop with a time unit to stop counter and get time since start was called
