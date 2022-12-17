@@ -22,3 +22,17 @@ Vertex::Vertex(glm::vec3 p, glm::vec2 uv){
     pos = p;
     UV = uv;
 }
+
+
+MeshDetails::MeshDetails(){
+    vao = numElements = 0;
+    drawType = TRIANGLES;
+}
+
+MeshDetails::MeshDetails(uint32_t v, uint32_t e){
+    vao = v; numElements = e; drawType = TRIANGLES;
+}
+
+MeshDetails::MeshDetails(uint32_t v, uint32_t e, DrawType_t dt){
+    vao = v; numElements = e; drawType = dt;
+}
