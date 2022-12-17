@@ -18,6 +18,7 @@
 		4CD19054294D612E00DE4753 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD19053294D612E00DE4753 /* Window.cpp */; };
 		4CD1905D294D645600DE4753 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD19056294D645600DE4753 /* Shader.cpp */; };
 		4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1905F294D6CB500DE4753 /* Vertex.cpp */; };
+		4CF98EE3294D820D007358FF /* GL_Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF98EE2294D820D007358FF /* GL_Loader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +53,10 @@
 		4CD1905C294D645600DE4753 /* vert shader UI.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vert shader UI.glsl"; sourceTree = "<group>"; };
 		4CD1905F294D6CB500DE4753 /* Vertex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vertex.cpp; sourceTree = "<group>"; };
 		4CD19061294D6CBE00DE4753 /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
+		4CF98EE1294D820D007358FF /* GL_Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL_Loader.h; sourceTree = "<group>"; };
+		4CF98EE2294D820D007358FF /* GL_Loader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GL_Loader.cpp; sourceTree = "<group>"; };
+		4CF98EE7294D8305007358FF /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		4CF98EE8294D8305007358FF /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +97,8 @@
 		4CD1903C294D606600DE4753 /* opengl-tools */ = {
 			isa = PBXGroup;
 			children = (
+				4CF98EE9294D84AE007358FF /* assets */,
+				4CF98EE4294D82D4007358FF /* lib */,
 				4CD1905E294D6C6D00DE4753 /* Render */,
 				4CD19056294D645600DE4753 /* Shader.cpp */,
 				4CD19057294D645600DE4753 /* Shader.h */,
@@ -133,8 +140,42 @@
 			children = (
 				4CD1905F294D6CB500DE4753 /* Vertex.cpp */,
 				4CD19061294D6CBE00DE4753 /* Vertex.h */,
+				4CF98EE1294D820D007358FF /* GL_Loader.h */,
+				4CF98EE2294D820D007358FF /* GL_Loader.cpp */,
 			);
 			path = Render;
+			sourceTree = "<group>";
+		};
+		4CF98EE4294D82D4007358FF /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				4CF98EE5294D8305007358FF /* stb */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		4CF98EE5294D8305007358FF /* stb */ = {
+			isa = PBXGroup;
+			children = (
+				4CF98EE6294D8305007358FF /* include */,
+				4CF98EE8294D8305007358FF /* LICENSE.txt */,
+			);
+			path = stb;
+			sourceTree = "<group>";
+		};
+		4CF98EE6294D8305007358FF /* include */ = {
+			isa = PBXGroup;
+			children = (
+				4CF98EE7294D8305007358FF /* stb_image.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		4CF98EE9294D84AE007358FF /* assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +238,7 @@
 				4CD1903E294D606600DE4753 /* main.cpp in Sources */,
 				4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */,
 				4CD1905D294D645600DE4753 /* Shader.cpp in Sources */,
+				4CF98EE3294D820D007358FF /* GL_Loader.cpp in Sources */,
 				4CD19054294D612E00DE4753 /* Window.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
