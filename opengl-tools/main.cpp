@@ -19,7 +19,6 @@
 #include <vector>
 
 #include "Window.h"
-//test this
 
 using namespace std;
 
