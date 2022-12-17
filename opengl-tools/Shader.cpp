@@ -151,7 +151,6 @@ void Shader::uBool(const char* varName, bool val) const{
     GLint loc = glGetUniformLocation(programId, varName);
     glUniform1i(loc, val);
 }
-
 void Shader::uMat4(const char* varName, const glm::mat4& mat) const{
     GLint loc = glGetUniformLocation(programId, varName);
     glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
@@ -160,3 +159,4 @@ void Shader::uMat3(const char* varName, const glm::mat3& mat) const{
     GLint loc = glGetUniformLocation(programId, varName);
     glUniformMatrix3fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
 }
+

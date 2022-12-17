@@ -45,11 +45,11 @@ int main(int argc, const char * argv[]) {
     while (!glfwWindowShouldClose(window.handle)){
         glfwWaitEventsTimeout(1.0 / 120.0);
         glClear(GL_COLOR_BUFFER_BIT);
-        colorShader.bind();
+        noiseShader.bind();
         colorShader.uVec3("uColor", glm::vec3(1.f,0.2f,0.2f));
         DrawMesh(tileMeshDetails);
         colorShader.bind();
-        colorShader.uVec3("uColor", glm::vec3(1.f));
+        colorShader.uVec3("uColor", glm::vec3(1.f, 0.2f, 0.2f));
         DrawMesh(tileOutlineMeshDetails);
         window.update();
 //        cout << 1 / stopwatch_stop(ftime::SECONDS) << " FPS\n";
