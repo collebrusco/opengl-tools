@@ -22,6 +22,8 @@ double since_launch(TimeUnit);          // return time since launch
 void stopwatch_start();                 // start stopwatch
 double stopwatch_stop(ftime::TimeUnit); // stop & read stopwatch
 double stopwatch_read(ftime::TimeUnit); // read stopwatch, safe even after stop
+double stopwatch_stopstart(ftime::TimeUnit); // stop, read, and restart stopwatch.
+                                             // do this at the end of a loop to read dt
 }
 
 #endif /* f_time_h */
