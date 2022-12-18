@@ -45,10 +45,10 @@ double ftime::stopwatch_read(ftime::TimeUnit u){
     return (stopwatch_stop_time - stopwatch_start_time) / (double)u;
 }
 
-double ftime::stopwatch_stopstart(ftime::TimeUnit){
+double ftime::stopwatch_stopstart(ftime::TimeUnit u){
     double dt = ftime::stopwatch_stop(NANOSECONDS);
     ftime::stopwatch_start();
-    return dt;
+    return dt / (double)u;
 }
 
 
