@@ -30,6 +30,7 @@
 static vector<Shader> Shaders;
 static vector<MeshDetails> Meshes;
 static const float WAIT_TIME = (1.f / 120.f);
+static const bool OUT_FPS = false;
 double dt;
 
 void context_init(){
@@ -55,8 +56,10 @@ void context_loop(){
         DrawMesh(Meshes.at(1));
         window.update();
         
-        dt = ftime::stopwatch_stop(ftime::SECONDS);
-        ftime::stopwatch_start();
+        dt = ftime::stopwatch_stopstart(ftime::SECONDS);
+        if (OUT_FPS){
+            cout << 1/dt << "\n";
+        }
     }
 }
 
