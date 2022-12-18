@@ -9,9 +9,11 @@
 #ifndef Context_h
 #define Context_h
 
-class Context {
-    int what;
-    int the;
-};
+
+void context_init();
+
+void context_loop();
+
+void context_close();
 
 #endif /* Context_h */
