@@ -34,10 +34,7 @@ int main(int argc, const char * argv[]) {
     Shader noiseShader("basic_vert_shader", "noise_frag_shader");
     Shader colorShader("basic_vert_shader", "single_color_frag_shader");
     glClearColor(0 / 255.0, 0 / 255.0, 0 / 255.0, 0.f);
-    
-    //TODO: vsync causes mysterious left mouse bug...
-    glfwSwapInterval(1);
-    
+
     MeshDetails tileMeshDetails = UploadMesh(TileMesh);
     MeshDetails tileOutlineMeshDetails = UploadMesh(TileOutlineMesh);
     // Main Loop
