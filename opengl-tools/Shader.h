@@ -22,13 +22,13 @@ using namespace std;
 
 class Shader {
 private:
+    GLuint programId;
     const char* getShaderSource(string shad, string type);
 public:
-    GLuint programId;
     Shader();
     ~Shader();
     Shader(const char* vFileName, const char* fFileName);
-    
+    const GLuint& programID();
     
     bool compileAndLink(const char* vFileName, const char* fFileName);
     void bind();

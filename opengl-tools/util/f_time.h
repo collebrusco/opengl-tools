@@ -24,5 +24,4 @@ double stopwatch_stop(ftime::TimeUnit); // stop & read stopwatch
 double stopwatch_read(ftime::TimeUnit); // read stopwatch, safe even after stop
 }
 
-
 #endif /* f_time_h */

@@ -20,7 +20,7 @@ Shader::Shader(const char* vFileName, const char* fFileName){
 const char* Shader::getShaderSource(string shad, string type){
     ifstream fin;
     string path = "Shaders/" + shad + ".glsl";
-    cout << path << endl;
+    cout << "Reading shader at: " << path << endl;
     fin.open(path);
     if (!fin){
         cout << "error opening " + type + " shader!\n";
@@ -41,9 +41,9 @@ bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
     GLint status;
     glGetShaderiv(vShader, GL_COMPILE_STATUS, &status);
     if (status == GL_TRUE){
-        cout << "vert shader compiled sucessfully!" << endl;
+        cout << vFileName << " shader compiled sucessfully!" << endl;
     } else {
-        cout << "vert shader compilation failed!" << endl;
+        cout << vFileName << " shader compilation failed!" << endl;
         flag = false;
     }
     
@@ -54,9 +54,9 @@ bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
     glCompileShader(fShader);
     glGetShaderiv(fShader, GL_COMPILE_STATUS, &status);
     if (status == GL_TRUE){
-        cout << "frag shader compiled sucessfully!" << endl;
+        cout << fFileName << " shader compiled sucessfully!" << endl;
     } else {
-        cout << "frag shader compilation failed!" << endl;
+        cout << fFileName << " shader compilation failed!" << endl;
         flag = false;
     }
     
@@ -103,6 +103,7 @@ void Shader::unBind(){
     glUseProgram(0);
 }
 
+// if this is called after program has already been destroyed, is there a problem?
 void Shader::destroy(){
     glDeleteProgram(programId);
 }
@@ -151,7 +152,6 @@ void Shader::uBool(const char* varName, bool val) const{
     GLint loc = glGetUniformLocation(programId, varName);
     glUniform1i(loc, val);
 }
-
 void Shader::uMat4(const char* varName, const glm::mat4& mat) const{
     GLint loc = glGetUniformLocation(programId, varName);
     glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
@@ -159,4 +159,8 @@ void Shader::uMat4(const char* varName, const glm::mat4& mat) const{
 void Shader::uMat3(const char* varName, const glm::mat3& mat) const{
     GLint loc = glGetUniformLocation(programId, varName);
     glUniformMatrix3fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+const GLuint& Shader::programID(){
+    return programId;
 }

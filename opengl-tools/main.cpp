@@ -31,23 +31,26 @@ using namespace std;
 
 
 int main(int argc, const char * argv[]) {
-    Shader testShader("basic_vert_shader", "basic_frag_shader");
-    glClearColor(200.0 / 255.0, 140.0 / 255.0, 80.0 / 255.0, 0.f);
-    
-    //TODO: vsync causes mysterious left mouse bug...
-    glfwSwapInterval(1);
-    
+    Shader noiseShader("basic_vert_shader", "noise_frag_shader");
+    Shader colorShader("basic_vert_shader", "single_color_frag_shader");
+    glClearColor(0 / 255.0, 0 / 255.0, 0 / 255.0, 0.f);
+
     MeshDetails tileMeshDetails = UploadMesh(TileMesh);
-    testShader.bind();
+    MeshDetails tileOutlineMeshDetails = UploadMesh(TileOutlineMesh);
     // Main Loop
-    ftime::stopwatch_start();
-    while(!glfwWindowShouldClose(window.handle)){
+//    ftime::stopwatch_start();
+    while (!glfwWindowShouldClose(window.handle)){
         glfwWaitEventsTimeout(1.0 / 120.0);
         glClear(GL_COLOR_BUFFER_BIT);
+        noiseShader.bind();
+        colorShader.uVec3("uColor", glm::vec3(1.f,0.2f,0.2f));
         DrawMesh(tileMeshDetails);
+        colorShader.bind();
+        colorShader.uVec3("uColor", glm::vec3(1.f, 0.2f, 0.2f));
+        DrawMesh(tileOutlineMeshDetails);
         window.update();
-        cout << 1 / stopwatch_stop(ftime::SECONDS) << " FPS\n";
-        ftime::stopwatch_start();
+//        cout << 1 / stopwatch_stop(ftime::SECONDS) << " FPS\n";
+//        ftime::stopwatch_start();
     }
     cout << "window closed!\n";
     glfwTerminate();
