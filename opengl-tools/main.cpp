@@ -12,4 +12,3 @@ int main(int argc, const char * argv[]) {
     context_loop();
     context_close();
 }
-

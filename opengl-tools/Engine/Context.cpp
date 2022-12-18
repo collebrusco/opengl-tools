@@ -29,6 +29,8 @@
 
 static vector<Shader> Shaders;
 static vector<MeshDetails> Meshes;
+static const float WAIT_TIME = (1.f / 120.f);
+double dt;
 
 void context_init(){
     Shaders.emplace_back("basic_vert_shader", "noise_frag_shader");
@@ -40,10 +42,11 @@ void context_init(){
 }
 
 void context_loop(){
-    
+    ftime::stopwatch_start();
     while (!glfwWindowShouldClose(window.handle)){
-        glfwWaitEventsTimeout(1.0 / 120.0);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glfwWaitEventsTimeout(WAIT_TIME);
+        glClear(GL_COLOR_BUFFER_BIT);       // wait events and clear buffer
+        
         Shaders.at(0).bind();
         Shaders.at(0).uVec3("uColor", glm::vec3(1.f,0.2f,0.2f));
         DrawMesh(Meshes.at(0));
@@ -51,6 +54,9 @@ void context_loop(){
         Shaders.at(0).uVec3("uColor", glm::vec3(1.f, 0.2f, 0.2f));
         DrawMesh(Meshes.at(1));
         window.update();
+        
+        dt = ftime::stopwatch_stop(ftime::SECONDS);
+        ftime::stopwatch_start();
     }
 }
 

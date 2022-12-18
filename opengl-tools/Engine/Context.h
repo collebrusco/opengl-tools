@@ -9,7 +9,6 @@
 #ifndef Context_h
 #define Context_h
 
-
 void context_init();
 
 void context_loop();
