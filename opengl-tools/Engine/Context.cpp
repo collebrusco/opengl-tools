@@ -34,9 +34,11 @@ static const bool OUT_FPS = false;
 double dt;
 
 void context_init(){
+    glClearColor(0.f, 0.f, 0.f, 0.f);
+    
+    
     Shaders.emplace_back("basic_vert_shader", "noise_frag_shader");
     Shaders.emplace_back("basic_vert_shader", "single_color_frag_shader");
-    glClearColor(0.f, 0.f, 0.f, 0.f);
 
     Meshes.push_back(UploadMesh(TileMesh));
     Meshes.push_back(UploadMesh(TileOutlineMesh));
@@ -48,14 +50,16 @@ void context_loop(){
         glfwWaitEventsTimeout(WAIT_TIME);
         glClear(GL_COLOR_BUFFER_BIT);       // wait events and clear buffer
         
+        // ****************************TESTING********************************
         Shaders.at(0).bind();
         Shaders.at(0).uVec3("uColor", glm::vec3(1.f,0.2f,0.2f));
         DrawMesh(Meshes.at(0));
-        Shaders.at(0).bind();
-        Shaders.at(0).uVec3("uColor", glm::vec3(1.f, 0.2f, 0.2f));
+        Shaders.at(1).bind();
+        Shaders.at(1).uVec3("uColor", glm::vec3(1.f, 0.2f, 0.2f));
         DrawMesh(Meshes.at(1));
         window.update();
-        
+        // **************************END_TESTING******************************
+
         dt = ftime::stopwatch_stopstart(ftime::SECONDS);
         if (OUT_FPS){
             cout << 1/dt << "\n";
