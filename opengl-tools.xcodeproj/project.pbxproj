@@ -73,6 +73,7 @@
 		4CF98EF9294ED087007358FF /* Context.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
 		4CF98EFB294EE40C007358FF /* Environment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = "<group>"; };
 		4CF98EFC294EE40C007358FF /* Environment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Environment.cpp; sourceTree = "<group>"; };
+		4CF98EFE295691A4007358FF /* pop_vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pop_vector.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +208,7 @@
 			children = (
 				4CF98EF3294DA7A9007358FF /* f_time.cpp */,
 				4CF98EF2294DA7A9007358FF /* f_time.h */,
+				4CF98EFE295691A4007358FF /* pop_vector.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
