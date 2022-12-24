@@ -20,9 +20,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 
+class Camera {
+    
+};
 
+class orthoCamera {
+    
+};
 
 class Environment {
+private:
+    orthoCamera cam;
+public:
     
 };
 
