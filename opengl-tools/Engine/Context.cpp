@@ -26,12 +26,16 @@
 #include "../Render/GL_Draw.h"
 #include "../Shader.h"
 #include "../util/f_time.h"
+#include "../util/f_transform.h"
+#include "Environment.h"
 
 static vector<Shader> Shaders;
 static vector<MeshDetails> Meshes;
 static const float WAIT_TIME = (1.f / 120.f);
 static const bool OUT_FPS = false;
 double dt;
+
+Environment scene;
 
 void context_init(){
     glClearColor(0.f, 0.f, 0.f, 0.f);
@@ -42,6 +46,46 @@ void context_init(){
 
     Meshes.push_back(UploadMesh(TileMesh));
     Meshes.push_back(UploadMesh(TileOutlineMesh));
+    
+    scene.init();
+}
+
+static void SyncCamera(Environment env){
+    CameraData cd = env.cameraData();
+    for (auto s : Shaders){
+        s.uMat4("uView", cd.view);
+        s.uMat4("uProj", cd.proj);
+    }
+}
+
+static void RenderEnvironment(Environment env){
+    for (auto ep : env.entities){
+        Entity& e = *(ep.second);
+        if (e.comp(TransformType) && e.comp(RenderType)){
+            const TransformComponent& tcomp = *((TransformComponent*)(e.comp(TransformType)));
+            glm::mat4 model = genModelMat(tcomp.pos, tcomp.rotation, tcomp.scale);
+            
+            Shaders.at(((RenderComponent*)(e.comp(RenderType)))->shaderID).bind();
+            Shaders.at(((RenderComponent*)(e.comp(RenderType)))->shaderID).uMat4("uModel", model);
+            DrawMesh(Meshes.at(((RenderComponent*)(e.comp(RenderType)))->meshID));
+        }
+    }
+}
+
+static void test_bounce(Environment env, double dt){
+    static glm::vec2 v(2.f,2.f);
+    for (auto ep : env.entities){
+        Entity& e = *(ep.second);
+        TransformComponent& tcomp = *((TransformComponent*)(e.comp(TransformType)));
+        if (((tcomp.pos.x + (v.x * dt)) > 4.5) || ((tcomp.pos.x + (v.x * dt)) < -4.5)){
+            v.x *= -1;
+        }
+        if (((tcomp.pos.y + (v.y * dt)) > 3) || ((tcomp.pos.y + (v.y * dt)) < -3)){
+            v.y *= -1;
+        }
+        tcomp.pos.x += (v.x * dt);
+        tcomp.pos.y += (v.y * dt);
+    }
 }
 
 void context_loop(){
@@ -51,15 +95,19 @@ void context_loop(){
         glClear(GL_COLOR_BUFFER_BIT);       // wait events and clear buffer
         
         // ****************************TESTING********************************
-        Shaders.at(0).bind();
-        Shaders.at(0).uVec3("uColor", glm::vec3(1.f,0.2f,0.2f));
-        DrawMesh(Meshes.at(0));
-        Shaders.at(1).bind();
-        Shaders.at(1).uVec3("uColor", glm::vec3(1.f, 0.2f, 0.2f));
-        DrawMesh(Meshes.at(1));
-        window.update();
+//        Shaders.at(0).bind();
+//        Shaders.at(0).uVec3("uColor", glm::vec3(1.f,0.2f,0.2f));
+//        DrawMesh(Meshes.at(0));
+//        Shaders.at(1).bind();
+//        Shaders.at(1).uVec3("uColor", glm::vec3(1.f, 0.2f, 0.2f));
+//        DrawMesh(Meshes.at(1));
+        scene.update(dt);
+        test_bounce(scene, dt);
+        SyncCamera(scene);
+        RenderEnvironment(scene);
         // **************************END_TESTING******************************
 
+        window.update();
         dt = ftime::stopwatch_stopstart(ftime::SECONDS);
         if (OUT_FPS){
             cout << 1/dt << "\n";
