@@ -76,11 +76,12 @@ static void test_bounce(Environment env, double dt){
     static glm::vec2 v(2.f,2.f);
     for (auto ep : env.entities){
         Entity& e = *(ep.second);
+        float h = ((10/window.aspect)/2) - 0.5f;
         TransformComponent& tcomp = *((TransformComponent*)(e.comp(TransformType)));
         if (((tcomp.pos.x + (v.x * dt)) > 4.5) || ((tcomp.pos.x + (v.x * dt)) < -4.5)){
             v.x *= -1;
         }
-        if (((tcomp.pos.y + (v.y * dt)) > 3) || ((tcomp.pos.y + (v.y * dt)) < -3)){
+        if (((tcomp.pos.y + (v.y * dt)) > h) || ((tcomp.pos.y + (v.y * dt)) < -h)){
             v.y *= -1;
         }
         tcomp.pos.x += (v.x * dt);
