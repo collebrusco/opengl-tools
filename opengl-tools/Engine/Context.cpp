@@ -67,6 +67,8 @@ static void RenderEnvironment(Environment env){
             
             Shaders.at(((RenderComponent*)(e.comp(RenderType)))->shaderID).bind();
             Shaders.at(((RenderComponent*)(e.comp(RenderType)))->shaderID).uMat4("uModel", model);
+            static const glm::vec3 color(1.f,0.f,0.f);
+            Shaders.at(((RenderComponent*)(e.comp(RenderType)))->shaderID).uVec3("uColor", color); // test
             DrawMesh(Meshes.at(((RenderComponent*)(e.comp(RenderType)))->meshID));
         }
     }
@@ -74,6 +76,7 @@ static void RenderEnvironment(Environment env){
 
 static void test_bounce(Environment env, double dt){
     static glm::vec2 v(2.f,2.f);
+    static int mod = 1;
     for (auto ep : env.entities){
         Entity& e = *(ep.second);
         float h = ((10/window.aspect)/2) - 0.5f;
@@ -86,6 +89,9 @@ static void test_bounce(Environment env, double dt){
         }
         tcomp.pos.x += (v.x * dt);
         tcomp.pos.y += (v.y * dt);
+        tcomp.rotation.z += (45.f * dt);
+        RenderComponent& rcomp = *((RenderComponent*)(e.comp(RenderType)));
+        if (!(mod++ % 30)) rcomp.shaderID ^= 0x01;
     }
 }
 
@@ -117,6 +123,7 @@ void context_loop(){
 }
 
 void context_close(){
+    scene.destroy();
     cout << "window closed!\n";
     glfwTerminate();
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C7FD04C295BD31E003F0AC6 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C7FD04B295BD31E003F0AC6 /* Camera.cpp */; };
 		4CD1903E294D606600DE4753 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1903D294D606600DE4753 /* main.cpp */; };
 		4CD19046294D609D00DE4753 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD19045294D609D00DE4753 /* CoreGraphics.framework */; };
 		4CD19048294D60A200DE4753 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD19047294D60A200DE4753 /* OpenGL.framework */; };
@@ -39,6 +40,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4C7FD04A295BD31E003F0AC6 /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		4C7FD04B295BD31E003F0AC6 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		4CD1903A294D606600DE4753 /* opengl-tools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "opengl-tools"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD1903D294D606600DE4753 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		4CD19045294D609D00DE4753 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -225,6 +228,8 @@
 				4CF98EF9294ED087007358FF /* Context.cpp */,
 				4CF98EFB294EE40C007358FF /* Environment.h */,
 				4CF98EFC294EE40C007358FF /* Environment.cpp */,
+				4C7FD04A295BD31E003F0AC6 /* Camera.h */,
+				4C7FD04B295BD31E003F0AC6 /* Camera.cpp */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				4CF98EFA294ED087007358FF /* Context.cpp in Sources */,
 				4CD1903E294D606600DE4753 /* main.cpp in Sources */,
 				4CF98EFD294EE40C007358FF /* Environment.cpp in Sources */,
+				4C7FD04C295BD31E003F0AC6 /* Camera.cpp in Sources */,
 				4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */,
 				4CF98EF4294DA7A9007358FF /* f_time.cpp in Sources */,
 				4CD1905D294D645600DE4753 /* Shader.cpp in Sources */,
