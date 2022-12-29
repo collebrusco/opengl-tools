@@ -63,7 +63,6 @@
 		4CD19061294D6CBE00DE4753 /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		4CF98EE1294D820D007358FF /* GL_Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL_Loader.h; sourceTree = "<group>"; };
 		4CF98EE2294D820D007358FF /* GL_Loader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GL_Loader.cpp; sourceTree = "<group>"; };
-		4CF98EE7294D8305007358FF /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		4CF98EE8294D8305007358FF /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		4CF98EEB294D8F2D007358FF /* Meshes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Meshes.h; sourceTree = "<group>"; };
 		4CF98EEC294D91A6007358FF /* GL_Draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL_Draw.h; sourceTree = "<group>"; };
@@ -197,7 +196,6 @@
 		4CF98EE6294D8305007358FF /* include */ = {
 			isa = PBXGroup;
 			children = (
-				4CF98EE7294D8305007358FF /* stb_image.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
