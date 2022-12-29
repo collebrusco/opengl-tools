@@ -59,17 +59,19 @@ static void SyncCamera(Environment env){
 }
 
 static void RenderEnvironment(Environment env){
+    SyncCamera(env);
     for (auto ep : env.entities){
         Entity& e = *(ep.second);
-        if (e.comp(TransformType) && e.comp(RenderType)){
-            const TransformComponent& tcomp = *((TransformComponent*)(e.comp(TransformType)));
+        if (e.hasComp(TransformType) && e.hasComp(RenderType)){
+            auto const& tcomp = e.comp<TransformComponent>();
+            auto const& rcomp = e.comp<RenderComponent>();
             glm::mat4 model = genModelMat(tcomp.pos, tcomp.rotation, tcomp.scale);
             
-            Shaders.at(((RenderComponent*)(e.comp(RenderType)))->shaderID).bind();
-            Shaders.at(((RenderComponent*)(e.comp(RenderType)))->shaderID).uMat4("uModel", model);
+            Shaders.at(rcomp.shaderID).bind();
+            Shaders.at(rcomp.shaderID).uMat4("uModel", model);
             static const glm::vec3 color(1.f,0.f,0.f);
-            Shaders.at(((RenderComponent*)(e.comp(RenderType)))->shaderID).uVec3("uColor", color); // test
-            DrawMesh(Meshes.at(((RenderComponent*)(e.comp(RenderType)))->meshID));
+            Shaders.at(rcomp.shaderID).uVec3("uColor", color); // test
+            DrawMesh(Meshes.at(rcomp.meshID));
         }
     }
 }
@@ -80,7 +82,8 @@ static void test_bounce(Environment env, double dt){
     for (auto ep : env.entities){
         Entity& e = *(ep.second);
         float h = ((10/window.aspect)/2) - 0.5f;
-        TransformComponent& tcomp = *((TransformComponent*)(e.comp(TransformType)));
+        auto& tcomp = e.comp<TransformComponent>();
+        auto& rcomp = e.comp<RenderComponent>();
         if (((tcomp.pos.x + (v.x * dt)) > 4.5) || ((tcomp.pos.x + (v.x * dt)) < -4.5)){
             v.x *= -1;
         }
@@ -90,7 +93,6 @@ static void test_bounce(Environment env, double dt){
         tcomp.pos.x += (v.x * dt);
         tcomp.pos.y += (v.y * dt);
         tcomp.rotation.z += (45.f * dt);
-        RenderComponent& rcomp = *((RenderComponent*)(e.comp(RenderType)));
         if (!(mod++ % 30)) rcomp.shaderID ^= 0x01;
     }
 }
@@ -104,7 +106,6 @@ void context_loop(){
         // ****************************TESTING********************************
         scene.update(dt);
         test_bounce(scene, dt);
-        SyncCamera(scene);
         RenderEnvironment(scene);
         // **************************END_TESTING******************************
 

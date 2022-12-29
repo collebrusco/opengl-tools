@@ -42,21 +42,25 @@ public:
     glm::vec3 rotation;
     glm::vec3 scale;
     TransformComponent(){
+        type = TransformType;
         pos = glm::vec3(0.f);
         rotation = glm::vec3(0.f);
         scale = glm::vec3(1.f);
     }
     TransformComponent(glm::vec3 p){
+        type = TransformType;
         pos = p;
         rotation = glm::vec3(0.f);
         scale = glm::vec3(1.f);
     }
     TransformComponent(glm::vec3 p, glm::vec3 r){
+        type = TransformType;
         pos = p;
         rotation = r;
         scale = glm::vec3(1.f);
     }
     TransformComponent(glm::vec3 p, glm::vec3 r, glm::vec3 s){
+        type = TransformType;
         pos = p;
         rotation = r;
         scale = s;
@@ -67,6 +71,9 @@ struct RenderComponent : Component {
 public:
     uint32_t meshID;
     uint32_t shaderID;
+    RenderComponent(){
+        type = RenderType; meshID = shaderID = 0;
+    }
     RenderComponent(uint32_t m, uint32_t s){
         meshID = m;
         shaderID = s;
@@ -77,16 +84,7 @@ public:
 class Entity {
 private:
     std::map<ComponentType, Component*> components;
-public:
-    uint32_t ID; //todo private?
-    Entity(uint32_t iD){
-        ID = iD;
-    }
-    ~Entity(){
-        for (auto c : components){
-            if (c.second) delete c.second;
-        }
-    }
+public: //protected:
     void pushComponent(Component* comp){
         components.erase(comp->type);
         components[comp->type] = comp;
@@ -101,11 +99,25 @@ public:
             components.erase(type);
         }
     }
-    Component* comp(ComponentType type){
-        if (components.contains(type)){
-            return components[type];
-        } else {
-            return 0;
+    bool hasComp(ComponentType type){
+        return components.contains(type);
+    }
+    template <typename T>
+    T& comp(){
+        ComponentType type;
+        T dummy;            // I dont love this solution, calling constructor to get ctype map key TODO: improve
+        type = dummy.type;
+        assert(this->hasComp(type));
+        return *((T*)components[type]);
+    }
+public:
+    uint32_t ID; //todo private?
+    Entity(uint32_t iD){
+        ID = iD;
+    }
+    ~Entity(){
+        for (auto c : components){
+            if (c.second) delete c.second;
         }
     }
 };
