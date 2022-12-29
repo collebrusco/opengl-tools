@@ -74,8 +74,6 @@ public:
     }
 };
 
-
-
 class Entity {
 private:
     std::map<ComponentType, Component*> components;
@@ -130,13 +128,11 @@ public:
     CameraData cameraData(){
         return cam.Data();
     }
-    
     void destroy(){
         for (auto e : entities){
             delete e.second;
         }
     }
-    
 };
 
 #endif /* Environment_h */

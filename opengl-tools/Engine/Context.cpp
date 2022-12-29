@@ -102,12 +102,6 @@ void context_loop(){
         glClear(GL_COLOR_BUFFER_BIT);       // wait events and clear buffer
         
         // ****************************TESTING********************************
-//        Shaders.at(0).bind();
-//        Shaders.at(0).uVec3("uColor", glm::vec3(1.f,0.2f,0.2f));
-//        DrawMesh(Meshes.at(0));
-//        Shaders.at(1).bind();
-//        Shaders.at(1).uVec3("uColor", glm::vec3(1.f, 0.2f, 0.2f));
-//        DrawMesh(Meshes.at(1));
         scene.update(dt);
         test_bounce(scene, dt);
         SyncCamera(scene);
