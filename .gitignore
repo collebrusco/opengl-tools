@@ -1,3 +1,6 @@
+# STB image
+lib/stb/include/stb_image.h
+
 # Prerequisites
 *.d
 
