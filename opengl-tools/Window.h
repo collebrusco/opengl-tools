@@ -28,7 +28,8 @@ struct Button {
 
 struct Mouse {
     Button buttons[GLFW_MOUSE_BUTTON_LAST];
-    glm::vec2 position, delta, scrollDelta, scrollDeltaLast;
+    glm::vec2 position, delta, deltaLast, scrollDelta, scrollDeltaLast;
+    bool grabbed;
 };
 
 struct Keyboard {

@@ -36,7 +36,6 @@ static void _key_callback(GLFWwindow* handle, int key, int scancode, int action,
     if (key < 0) {
         return;
     }
-    
     switch (action){
         case GLFW_PRESS:
             window.keyboard.keys[key].down = true;
@@ -118,6 +117,11 @@ void Window::update(){
         window.mouse.scrollDelta = glm::vec2(0.0);
     }
     window.mouse.scrollDeltaLast = window.mouse.scrollDelta;
+    //TODO: improve non-mousedelta detection
+    if (window.mouse.delta == window.mouse.deltaLast){
+        window.mouse.delta = glm::vec2(0.0);
+    }
+    window.mouse.deltaLast = window.mouse.delta;
     
     
     
@@ -134,7 +138,11 @@ void Window::buttonArrayUpdate(size_t n, Button *butts){
 }
 
 void Window::setMouseGrabbed(bool grabbed){
+    mouse.grabbed = grabbed;
     glfwSetInputMode(handle, GLFW_CURSOR, grabbed ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+}
+bool Window::getMouseGrabbed(){
+    return mouse.grabbed;
 }
 
 void Window::setMousePos(glm::vec2 p){

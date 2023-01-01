@@ -23,11 +23,15 @@ struct CameraData {
 };
 
 class Camera {
-protected:
+public://protected:
     glm::vec3 pos, look, up;
     glm::mat4 view;
     glm::mat4 proj;
+    float near, far;
 public: //TODO: detect & update only when needed
+    virtual ~Camera() = default;
+    virtual void update(); //default calls up v & p, add more if needed
+    virtual void setMouseControl(bool);
     glm::mat4 updateView();
     virtual glm::mat4 updateProj() = 0;
     glm::mat4 View();
@@ -38,7 +42,6 @@ public: //TODO: detect & update only when needed
 class OrthoCamera : public Camera {
     constexpr const static glm::mat2x4 lrbtMat = { glm::vec4(-0.5f, 0.5f, 0, 0),
                                                    glm::vec4(0, 0, -0.5f, 0.5f)};
-    float near, far;
     float viewWidth; //in game coords
 public:
     OrthoCamera();
@@ -47,4 +50,19 @@ public:
     void setViewWidth(float vw);
     glm::mat4 updateProj() override ;
 };
+
+class PerspectiveCamera : public Camera {
+    float fov;
+    bool mouseControlled;
+public:
+    float phi, theta;
+    PerspectiveCamera();
+    PerspectiveCamera(const PerspectiveCamera&) = default;
+    PerspectiveCamera(glm::vec3 p, glm::vec3 l, glm::vec3 u, float n, float f, float fv);
+    void setFOV(float fv);
+    glm::mat4 updateProj() override;
+    void setMouseControl(bool) override;
+    void update() override;
+};
+
 #endif /* Camera_h */

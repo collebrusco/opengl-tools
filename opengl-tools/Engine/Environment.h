@@ -67,7 +67,7 @@ public:
     }
 };
 
-struct RenderComponent : Component {
+struct RenderComponent : public Component {
 public:
     uint32_t meshID;
     uint32_t shaderID;
@@ -124,26 +124,60 @@ public:
 
 class Environment {
 private:
-    OrthoCamera cam;
-public:
-    std::map<uint32_t, Entity*> entities;
-    Environment(){}
-    void init(){
-        entities[0] = new Entity(0);
-        entities[0]->pushComponent(new RenderComponent(0, 0));
-        entities[0]->pushComponent(new TransformComponent(glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.f)));
-    }
-    void update(float dt){
-        cam.updateView();
-        cam.updateProj();
-    }
-    CameraData cameraData(){
-        return cam.Data();
-    }
     void destroy(){
+        delete cam;
         for (auto e : entities){
             delete e.second;
         }
+    }
+protected:
+    uint32_t findEmptyID(){
+        uint32_t i = 0;
+        while (entities.contains(i)){
+            i++;
+        }
+        return i;
+    }
+public:
+    Camera* cam;
+    std::map<uint32_t, Entity*> entities;
+    ~Environment(){
+        this->destroy();
+    }
+    Environment(){
+        cam = new PerspectiveCamera;
+        cam->setMouseControl(true);
+    }
+    void init(){
+//        entities[0] = new Entity(0);
+//        entities[0]->pushComponent(new RenderComponent(2, 0));
+//        entities[0]->pushComponent(new TransformComponent(glm::vec3(0.0, 0.0, -0.5), glm::vec3(0.0, 0.0, 0.f)));
+    }
+    Entity& addEntity(){
+        uint32_t ID = this->findEmptyID();
+        Entity* newEntity = new Entity(ID);
+        entities.insert({ID, newEntity});
+        return *newEntity;
+    }
+    Entity& addEntity(Entity* ent){
+        ent->ID = this->findEmptyID();
+        entities.insert({ent->ID, ent});
+        return *ent;
+    }
+    bool removeEntity(uint32_t ID){
+        if (entities.contains(ID)){
+            delete entities[ID];
+            entities.erase(ID);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    void update(float dt){
+        cam->update();
+    }
+    CameraData cameraData() const { // could make this return data of one of num of cameras if needed
+        return cam->Data();
     }
 };
 
