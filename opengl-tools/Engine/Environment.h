@@ -36,7 +36,11 @@ public:
     ComponentType type;
 };
 
+#include "../util/f_transform.h"
 class TransformComponent : public Component {
+private:
+    glm::mat4 model;
+    glm::vec3 lastP, lastR, lastS;
 public:
     glm::vec3 pos;
     glm::vec3 rotation;
@@ -64,6 +68,15 @@ public:
         pos = p;
         rotation = r;
         scale = s;
+    }
+    glm::mat4 const& genModel(){
+        if ((lastP == pos) && (lastR == rotation) && (lastS == scale)){
+            return model; //DEBUG garbage may equal init vals i suppose
+        } else {
+            lastP = pos; lastR = rotation; lastS = scale;
+            model = genModelMat(pos, rotation, scale);
+            return model;
+        }
     }
 };
 

@@ -69,7 +69,7 @@ class Chunk : public Entity {
         mb.addFace(glm::vec3(-0.4, 0, -0.4), glm::vec3(0.8, 0, 0), glm::vec3(0, 0, -0.1));    // bot strip
 
         float h = ((float)(rand() & 0xFF)) / 75;
-        std::cout << h << "\n";
+//        std::cout << h << "\n";
         mb.addFace(glm::vec3(-0.4, h, -0.4), glm::vec3(0.8, 0, 0), glm::vec3(0, 0, 0.8));   // top
         mb.addFace(glm::vec3(-0.4, 0, -0.4), glm::vec3(0, 0, 0.8), glm::vec3(0, h, 0));    // left side
         mb.addFace(glm::vec3(0.4, 0, -0.4), glm::vec3(0, 0, 0.8), glm::vec3(0, h, 0));    // right side
@@ -97,6 +97,8 @@ static void init_test_example(Environment& env){
     env.addEntity(new Chunk(0, glm::vec3(0, -1, 0)));
 }
 static void init_test_chunkscape(Environment& env){
+    ftime::stopwatch_start();
+    cout << "Loading test chunkscape...\n";
     env.cam->pos.y = 5;
     srand(0x36F72AD2);
     static const int w = 64;
@@ -105,6 +107,7 @@ static void init_test_chunkscape(Environment& env){
             env.addEntity(new Chunk(0, glm::vec3(i-(w/2), 0, j-(w/2))));
         }
     }
+    cout << "loading took " << ftime::stopwatch_read(ftime::SECONDS) << "s\n";
 }
 
 void context_init(){
@@ -141,20 +144,39 @@ static void SyncCamera(const Environment& env){
 }
 
 static void RenderEnvironment(const Environment& env){
+    double total_time = ftime::stopwatch_read(ftime::MICROSECONDS);
+    double render_time = 0;
+    double math_time = 0;
+    double ecs_time = 0;
+    double temp;
     SyncCamera(env);
     for (auto ep : env.entities){
         Entity& e = *(ep.second);
+        temp = ftime::stopwatch_read(ftime::MICROSECONDS);
         if (e.hasComp(TransformType) && e.hasComp(RenderType)){
-            auto const& tcomp = e.comp<TransformComponent>();
+            auto & tcomp = e.comp<TransformComponent>();
             auto const& rcomp = e.comp<RenderComponent>();
-            glm::mat4 model = genModelMat(tcomp.pos, tcomp.rotation, tcomp.scale);
+            temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
+            ecs_time += temp;
+            temp = ftime::stopwatch_read(ftime::MICROSECONDS);
+            auto const& model = tcomp.genModel();
+            temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
+            math_time += temp;
+            temp = ftime::stopwatch_read(ftime::MICROSECONDS);
             Shaders.at(rcomp.shaderID).bind();
             Shaders.at(rcomp.shaderID).uMat4("uModel", model);
-            static const glm::vec3 color(1.f,0.f,0.f);
-            Shaders.at(rcomp.shaderID).uVec3("uColor", color); // test
+//            static const glm::vec3 color(1.f,0.f,0.f);
+//            Shaders.at(rcomp.shaderID).uVec3("uColor", color); // test
             DrawMesh(Meshes.at(rcomp.meshID));
+            temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
+            render_time += temp;
+        } else {
+            temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
+            ecs_time += temp;
         }
     }
+    total_time = ftime::stopwatch_read(ftime::MICROSECONDS) - total_time;
+    cout << "Render time:\n\ttotal: " << total_time << "us\n\tmath: " << math_time << "us\n\tecs: " << ecs_time << "us\n\trender: " << render_time << "us\n";
 }
 
 static void test_bounce(Environment& env, double dt){
@@ -222,7 +244,8 @@ static void test_rotate(Environment& env, double dt){
 }
 #include <cmath>
 static void test_chunkscape(Environment& env, double dt){
-    for (auto en : env.entities){
+    cout << "entering cs test...\n";
+    for (auto& en : env.entities){
         auto& e = *en.second;
         auto const& tcomp = e.comp<TransformComponent>();
         if (glm::distance(glm::vec2(tcomp.pos.x, tcomp.pos.z), glm::vec2(env.cam->pos.x, env.cam->pos.z)) > 64){
@@ -237,7 +260,7 @@ static void test_chunkscape(Environment& env, double dt){
 //
 //        }
 //    }
-    
+    cout << "returning from cs test..\n";
 }
 
 void context_loop(){
