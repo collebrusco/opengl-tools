@@ -75,7 +75,7 @@ uint32_t UploadTexture(string name, bool pixelated){
 }
 
 #include <iostream>
- MeshDetails UploadMesh(const Mesh& mesh){
+ MeshDetails UploadMesh(const ROM_Mesh& mesh){
     const vector<Vertex>& verts = mesh.verticies;
     const vector<uint32_t>& elem = mesh.elements;
     if (verts.empty() || elem.empty()){
@@ -108,6 +108,41 @@ uint32_t UploadTexture(string name, bool pixelated){
     glDeleteBuffers(1, &EBO);
     
     return MeshDetails(VAO, elem.size()&0xFFFFFFFF, mesh.type);
+}
+
+MeshDetails UploadMesh(RAM_Mesh const& mesh){
+   vector<Vertex> const& verts = mesh.verticies;
+   vector<uint32_t> const& elem = mesh.elements;
+   if (verts.empty() || elem.empty()){
+       throw("empty vectors!");
+   }
+   
+   uint32_t VAO, VBO, EBO;
+   
+   glGenVertexArrays(1, &VAO);
+   glBindVertexArray(VAO);
+   
+   glGenBuffers(1, &VBO);
+   glBindBuffer(GL_ARRAY_BUFFER, VBO);
+   glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(Vertex), verts.data(), GL_STATIC_DRAW);
+   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
+                         sizeof(Vertex),
+                         (const void*)offsetof(Vertex, pos));
+   glEnableVertexAttribArray(0);
+   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
+                         sizeof(Vertex),
+                         (const void*)offsetof(Vertex, UV));
+   glEnableVertexAttribArray(1);
+   
+   glGenBuffers(1, &EBO);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+   glBufferData(GL_ELEMENT_ARRAY_BUFFER, elem.size() * sizeof(uint32_t), elem.data(), GL_STATIC_DRAW);
+   
+   glBindVertexArray(0);
+   glDeleteBuffers(1, &VBO);
+   glDeleteBuffers(1, &EBO);
+   
+   return MeshDetails(VAO, elem.size()&0xFFFFFFFF, mesh.type);
 }
 
 

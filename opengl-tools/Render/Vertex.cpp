@@ -23,7 +23,12 @@ Vertex::Vertex(glm::vec3 p, glm::vec2 uv){
     UV = uv;
 }
 
-Mesh::Mesh(const std::vector<Vertex>& vs, const std::vector<uint32_t>& ems, DrawType_t t) : verticies(vs), elements(ems) {
+ROM_Mesh::ROM_Mesh(const std::vector<Vertex>& vs, const std::vector<uint32_t>& ems, DrawType_t t) : verticies(vs), elements(ems) {
+    type = t;
+}
+
+RAM_Mesh::RAM_Mesh(DrawType_t t) {
+    
     type = t;
 }
 

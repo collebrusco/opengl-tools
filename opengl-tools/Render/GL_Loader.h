@@ -15,7 +15,9 @@
 uint32_t UploadTexture(std::string name, bool pixelated);
 
 //MeshDetails UploadMesh(const std::vector<Vertex>& verts, const std::vector<uint32_t> elem, DrawType_t type);
-MeshDetails UploadMesh(const Mesh& mesh);
+MeshDetails UploadMesh(const ROM_Mesh& mesh);
+MeshDetails UploadMesh(RAM_Mesh const& mesh);
+
 
 void UnloadMesh(MeshDetails&);
 

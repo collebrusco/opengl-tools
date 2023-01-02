@@ -26,11 +26,18 @@ struct Vertex {
 };
 
 // Use this to create meshes
-struct Mesh {
+struct ROM_Mesh {
     const std::vector<Vertex>& verticies;
     const std::vector<uint32_t>& elements;
     DrawType_t type;
-    Mesh(const std::vector<Vertex>& vs, const std::vector<uint32_t>& ems, DrawType_t t);
+    ROM_Mesh(const std::vector<Vertex>& vs, const std::vector<uint32_t>& ems, DrawType_t t);
+};
+
+struct RAM_Mesh {
+    std::vector<Vertex> verticies;
+    std::vector<uint32_t> elements;
+    DrawType_t type;
+    RAM_Mesh(DrawType_t t);
 };
 
 struct MeshDetails {

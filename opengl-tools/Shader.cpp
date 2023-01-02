@@ -44,7 +44,19 @@ bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
         cout << vFileName << " shader compiled sucessfully!" << endl;
     } else {
         cout << vFileName << " shader compilation failed!" << endl;
-        flag = false;
+        GLint maxLength = 0;
+        glGetShaderiv(vShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+        std::vector<GLchar> errorLog(maxLength);
+        glGetShaderInfoLog(vShader, maxLength, &maxLength, &errorLog[0]);
+        cout << "Error: \n";
+        for (int i = 0; i < errorLog.size(); i++){
+            cout << errorLog[i];
+        }
+        cout << "\n";
+        // Exit with failure.
+        glDeleteShader(vShader); // Don't leak the shader.
+        return false;
     }
     
     const char* fSource = getShaderSource(fFileName, "frag");
@@ -57,7 +69,19 @@ bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
         cout << fFileName << " shader compiled sucessfully!" << endl;
     } else {
         cout << fFileName << " shader compilation failed!" << endl;
-        flag = false;
+        GLint maxLength = 0;
+        glGetShaderiv(fShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+        std::vector<GLchar> errorLog(maxLength);
+        glGetShaderInfoLog(fShader, maxLength, &maxLength, &errorLog[0]);
+        cout << "Error: \n";
+        for (int i = 0; i < errorLog.size(); i++){
+            cout << errorLog[i];
+        }
+        cout << "\n";
+        // Exit with failure.
+        glDeleteShader(fShader); // Don't leak the shader.
+        return false;
     }
     
     //create program object

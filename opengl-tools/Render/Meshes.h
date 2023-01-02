@@ -25,7 +25,7 @@ static const std::vector<uint32_t> tile_elements = {
             0, 3, 2,
             0, 1, 3
         };
-const Mesh TileMesh(tile_vertices, tile_elements, TRIANGLES);
+const ROM_Mesh TileMesh(tile_vertices, tile_elements, TRIANGLES);
 
 static const std::vector<uint32_t> tile_outline_elements = {
     0, 1,
@@ -33,7 +33,7 @@ static const std::vector<uint32_t> tile_outline_elements = {
     3, 2,
     2, 0
 };
-const Mesh TileOutlineMesh(tile_vertices, tile_outline_elements, LINES);
+const ROM_Mesh TileOutlineMesh(tile_vertices, tile_outline_elements, LINES);
 
 // ********************************CUBE********************************
 static const std::vector<Vertex> cube_verticies = {
@@ -66,5 +66,5 @@ static const std::vector<uint32_t> cube_elements = {
             2, 6, 7,    // bottom face
             2, 7, 3
         };
-const Mesh CubeMesh(cube_verticies, cube_elements, TRIANGLES);
+const ROM_Mesh CubeMesh(cube_verticies, cube_elements, TRIANGLES);
 #endif /* Meshes_h */
