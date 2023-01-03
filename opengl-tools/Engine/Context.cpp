@@ -24,10 +24,11 @@
 #include "../Render/Meshes.h"
 #include "../Render/GL_Loader.h"
 #include "../Render/GL_Draw.h"
-#include "../Shader.h"
+#include "../Render/Shader.h"
 #include "../util/f_time.h"
 #include "../util/f_transform.h"
 #include "Environment.h"
+#include "State.h"
 
 static vector<Shader> Shaders;
 static vector<MeshDetails> Meshes;
@@ -111,6 +112,7 @@ static void init_test_chunkscape(Environment& env){
 }
 
 void context_init(){
+    state.init();
     glClearColor(0.f, 0.f, 0.f, 0.f);
     glEnable(GL_DEPTH_TEST);
     
@@ -120,7 +122,7 @@ void context_init(){
     Meshes.push_back(UploadMesh(TileMesh));
     Meshes.push_back(UploadMesh(TileOutlineMesh));
     Meshes.push_back(UploadMesh(CubeMesh));
-    RAM_Mesh cubeMesh(TRIANGLES);
+//    RAM_Mesh cubeMesh(TRIANGLES);
 //    MeshBuilder mb(cubeMesh);
 //    mb.addFace(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(-0.5f, 0.5f, -0.5f), glm::vec3(0.5f, -0.5f, 0.5f));
 //    mb.addFace(glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.5f, -0.5f, -0.5f));

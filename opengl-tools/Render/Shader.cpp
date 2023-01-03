@@ -119,11 +119,11 @@ bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
     
 }
 
-void Shader::bind(){
+void Shader::bind() const {
     glUseProgram(programId);
 }
 
-void Shader::unBind(){
+void Shader::unBind() const {
     glUseProgram(0);
 }
 
@@ -185,6 +185,6 @@ void Shader::uMat3(const char* varName, const glm::mat3& mat) const{
     glUniformMatrix3fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
 }
 
-const GLuint& Shader::programID(){
+const GLuint& Shader::programID() const {
     return programId;
 }

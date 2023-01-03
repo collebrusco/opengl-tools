@@ -20,6 +20,8 @@
 		4CD1905D294D645600DE4753 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD19056294D645600DE4753 /* Shader.cpp */; };
 		4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1905F294D6CB500DE4753 /* Vertex.cpp */; };
 		4CD50D2C29623CB800BEBA09 /* MeshBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD50D2B29623CB800BEBA09 /* MeshBuilder.cpp */; };
+		4CD50D312963C21E00BEBA09 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD50D302963C21E00BEBA09 /* State.cpp */; };
+		4CD50D342963CB7600BEBA09 /* ObjectPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD50D332963CB7600BEBA09 /* ObjectPool.cpp */; };
 		4CF98EE3294D820D007358FF /* GL_Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF98EE2294D820D007358FF /* GL_Loader.cpp */; };
 		4CF98EEE294D91A6007358FF /* GL_Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF98EED294D91A6007358FF /* GL_Draw.cpp */; };
 		4CF98EF4294DA7A9007358FF /* f_time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF98EF3294DA7A9007358FF /* f_time.cpp */; };
@@ -64,6 +66,10 @@
 		4CD19061294D6CBE00DE4753 /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		4CD50D2A29623CB800BEBA09 /* MeshBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBuilder.h; sourceTree = "<group>"; };
 		4CD50D2B29623CB800BEBA09 /* MeshBuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshBuilder.cpp; sourceTree = "<group>"; };
+		4CD50D2F2963C21E00BEBA09 /* State.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
+		4CD50D302963C21E00BEBA09 /* State.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
+		4CD50D322963CB7600BEBA09 /* ObjectPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectPool.h; sourceTree = "<group>"; };
+		4CD50D332963CB7600BEBA09 /* ObjectPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectPool.cpp; sourceTree = "<group>"; };
 		4CF98EE1294D820D007358FF /* GL_Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL_Loader.h; sourceTree = "<group>"; };
 		4CF98EE2294D820D007358FF /* GL_Loader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GL_Loader.cpp; sourceTree = "<group>"; };
 		4CF98EE8294D8305007358FF /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -218,6 +224,8 @@
 				4CF98EFE295691A4007358FF /* pop_vector.h */,
 				4CF98F012956E0C9007358FF /* f_transform.h */,
 				4CF98F022956E0C9007358FF /* f_transform.cpp */,
+				4CD50D322963CB7600BEBA09 /* ObjectPool.h */,
+				4CD50D332963CB7600BEBA09 /* ObjectPool.cpp */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -233,6 +241,8 @@
 				4C7FD04B295BD31E003F0AC6 /* Camera.cpp */,
 				4CD50D2A29623CB800BEBA09 /* MeshBuilder.h */,
 				4CD50D2B29623CB800BEBA09 /* MeshBuilder.cpp */,
+				4CD50D2F2963C21E00BEBA09 /* State.h */,
+				4CD50D302963C21E00BEBA09 /* State.cpp */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -294,12 +304,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CD50D342963CB7600BEBA09 /* ObjectPool.cpp in Sources */,
 				4CF98EEE294D91A6007358FF /* GL_Draw.cpp in Sources */,
 				4CF98EFA294ED087007358FF /* Context.cpp in Sources */,
 				4CD1903E294D606600DE4753 /* main.cpp in Sources */,
 				4CF98EFD294EE40C007358FF /* Environment.cpp in Sources */,
 				4CD50D2C29623CB800BEBA09 /* MeshBuilder.cpp in Sources */,
 				4C7FD04C295BD31E003F0AC6 /* Camera.cpp in Sources */,
+				4CD50D312963C21E00BEBA09 /* State.cpp in Sources */,
 				4CD19060294D6CB500DE4753 /* Vertex.cpp in Sources */,
 				4CF98EF4294DA7A9007358FF /* f_time.cpp in Sources */,
 				4CD1905D294D645600DE4753 /* Shader.cpp in Sources */,

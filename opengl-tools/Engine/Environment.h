@@ -23,7 +23,7 @@
 #include <map>
 #include <cassert>
 #include "../Window.h"
-#include "../Shader.h"
+#include "../Render/Shader.h"
 #include "Camera.h"
 enum ComponentType {
     TransformType,

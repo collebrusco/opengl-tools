@@ -28,11 +28,11 @@ public:
     Shader();
     ~Shader();
     Shader(const char* vFileName, const char* fFileName);
-    const GLuint& programID();
+    const GLuint& programID() const;
     
     bool compileAndLink(const char* vFileName, const char* fFileName);
-    void bind();
-    void unBind();
+    void bind() const;
+    void unBind() const;
     void destroy();
     void uVec4(const char* varName, const glm::vec4& vec) const;
     void uVec3(const char* varName, const glm::vec3& vec) const;
