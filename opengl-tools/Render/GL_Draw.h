@@ -11,5 +11,6 @@
 #include "Vertex.h"
 
 void DrawMesh(MeshDetails& mesh);
+void DrawMesh(MeshDetails const& mesh);
 
 #endif /* GL_Draw_h */

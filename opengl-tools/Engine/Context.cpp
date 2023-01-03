@@ -30,8 +30,8 @@
 #include "Environment.h"
 #include "State.h"
 
-static vector<Shader> Shaders;
-static vector<MeshDetails> Meshes;
+//static vector<Shader> Shaders;
+//static vector<MeshDetails> Meshes;
 static const float WAIT_TIME = (1.f / 120.f);
 static const bool OUT_FPS = true;
 double dt;
@@ -83,11 +83,11 @@ public:
     Chunk(uint32_t ID, glm::vec3 p) : Entity(ID), mesh(TRIANGLES) {
         pos = p;
         this->addComponent(new TransformComponent(pos));
-        this->addComponent(new RenderComponent((uint32_t)Meshes.size(), 0));
-        Meshes.emplace_back(UploadMesh(this->genMesh()));
+        auto meshid = state.pushMesh(this->genMesh());
+        this->addComponent(new RenderComponent(meshid, 0));
     }
     ~Chunk(){
-        UnloadMesh(Meshes.at(this->comp<RenderComponent>().meshID));
+        state.popMesh(this->comp<RenderComponent>().meshID);
     }
 };
 
@@ -116,12 +116,12 @@ void context_init(){
     glClearColor(0.f, 0.f, 0.f, 0.f);
     glEnable(GL_DEPTH_TEST);
     
-    Shaders.emplace_back("basic_vert_shader", "noise_frag_shader");
-    Shaders.emplace_back("basic_vert_shader", "single_color_frag_shader");
-
-    Meshes.push_back(UploadMesh(TileMesh));
-    Meshes.push_back(UploadMesh(TileOutlineMesh));
-    Meshes.push_back(UploadMesh(CubeMesh));
+//    Shaders.emplace_back("basic_vert_shader", "noise_frag_shader");
+//    Shaders.emplace_back("basic_vert_shader", "single_color_frag_shader");
+//
+//    Meshes.push_back(UploadMesh(TileMesh));
+//    Meshes.push_back(UploadMesh(TileOutlineMesh));
+//    Meshes.push_back(UploadMesh(CubeMesh));
 //    RAM_Mesh cubeMesh(TRIANGLES);
 //    MeshBuilder mb(cubeMesh);
 //    mb.addFace(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(-0.5f, 0.5f, -0.5f), glm::vec3(0.5f, -0.5f, 0.5f));
@@ -139,7 +139,7 @@ void context_init(){
 
 static void SyncCamera(const Environment& env){
     CameraData cd = env.cameraData();
-    for (auto s : Shaders){
+    for (auto s : state.shaders){
         s.uMat4("uView", cd.view);
         s.uMat4("uProj", cd.proj);
     }
@@ -165,11 +165,11 @@ static void RenderEnvironment(const Environment& env){
             temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
             math_time += temp;
             temp = ftime::stopwatch_read(ftime::MICROSECONDS);
-            Shaders.at(rcomp.shaderID).bind();
-            Shaders.at(rcomp.shaderID).uMat4("uModel", model);
+            state.shaders.at(rcomp.shaderID).bind();
+            state.shaders.at(rcomp.shaderID).uMat4("uModel", model);
 //            static const glm::vec3 color(1.f,0.f,0.f);
 //            Shaders.at(rcomp.shaderID).uVec3("uColor", color); // test
-            DrawMesh(Meshes.at(rcomp.meshID));
+            DrawMesh(state.mesh(rcomp.meshID));
             temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
             render_time += temp;
         } else {

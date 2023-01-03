@@ -14,6 +14,7 @@
 #include "../util/ObjectPool.h"
 
 #define SHADER_LAST TEXTURE_SHADER
+#define ITERATE_SHADERS int i = 0; i < SHADER_LAST; i++
 enum ShaderType {
     DEFAULT_SHADER = 0,
     NOISE_SHADER,
@@ -28,15 +29,14 @@ enum MeshType {
 
 class State {
 private:
-    Shader shaders[SHADER_LAST+1];
 //    vector<MeshDetails> meshes;
     ObjectPool<MeshDetails> meshes;
-    bool initShaders();
+    void initShaders();
     void initMeshes();
 public:
+    std::vector<Shader> shaders;
     State();
     void init();
-    Shader const& shader(ShaderType);
     MeshDetails const& mesh(uint32_t);
     uint32_t pushMesh(RAM_Mesh);
     void popMesh(uint32_t);

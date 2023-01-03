@@ -14,18 +14,10 @@ State state;
 
 State::State() : meshes(0x00002000) {};
 
-bool State::initShaders(){
-    bool flag = true;
-    if (!shaders[NOISE_SHADER].compileAndLink("basic_vert_shader", "noise_frag_shader")){
-        flag = false;
-    };
-    if (!shaders[DEFAULT_SHADER].compileAndLink("basic_vert_shader", "single_color_frag_shader")){
-        flag = false;
-    }
-    if (!shaders[TEXTURE_SHADER].compileAndLink("vert_shader", "frag_shader")){
-        flag = false;
-    }
-    return flag;
+void State::initShaders(){
+    shaders.emplace_back("basic_vert_shader", "noise_frag_shader");
+    shaders.emplace_back("basic_vert_shader", "single_color_frag_shader");
+    shaders.emplace_back("vert_shader", "frag_shader");
 }
 
 void State::initMeshes(){\
@@ -39,10 +31,6 @@ void State::init(){
     this->initMeshes();
 }
 
-Shader const& State::shader(ShaderType type){
-    return shaders[type];
-}
-
 MeshDetails const& State::mesh(uint32_t i){
     assert(i < meshes.size());
     return meshes[i];
@@ -50,4 +38,9 @@ MeshDetails const& State::mesh(uint32_t i){
 
 uint32_t State::pushMesh(RAM_Mesh m){
     return meshes.push(UploadMesh(m));
+}
+
+void State::popMesh(uint32_t i){
+    UnloadMesh(meshes[i]);
+    meshes.pop(i);
 }

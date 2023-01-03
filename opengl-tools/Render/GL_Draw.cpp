@@ -16,3 +16,10 @@ void DrawMesh(MeshDetails& mesh){
     glDrawElements((mesh.drawType == TRIANGLES) ? GL_TRIANGLES : GL_LINES, mesh.numElements, GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }
+
+void DrawMesh(MeshDetails const& mesh){
+    glBindVertexArray(mesh.vao);
+    //TODO: error check this, glGetError()
+    glDrawElements((mesh.drawType == TRIANGLES) ? GL_TRIANGLES : GL_LINES, mesh.numElements, GL_UNSIGNED_INT, nullptr);
+    glBindVertexArray(0);
+}
