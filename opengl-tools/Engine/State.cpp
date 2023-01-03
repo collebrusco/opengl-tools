@@ -14,6 +14,12 @@ State state;
 
 State::State() : meshes(0x00002000) {};
 
+State::~State(){
+    for (auto s : shaders){
+        s.destroy();
+    }
+}
+
 void State::initShaders(){
     shaders.emplace_back("basic_vert_shader", "noise_frag_shader");
     shaders.emplace_back("basic_vert_shader", "single_color_frag_shader");

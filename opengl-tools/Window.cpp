@@ -108,8 +108,17 @@ Window::Window(const char* title){
     //V-SYNC
     glfwSwapInterval(1);
 }
-
+#ifdef DEBUG
+#include "util/f_time.h"
+#endif
 void Window::update(){
+#ifdef DEBUG
+    ftime::StopWatch t(ftime::MICROSECONDS);
+    ftime::StopWatch tt(ftime::MICROSECONDS);
+    tt.reset_start();
+    std::cout << "Window time:\n";
+    t.reset_start();
+#endif
     buttonArrayUpdate(GLFW_MOUSE_BUTTON_LAST, window.mouse.buttons);
     buttonArrayUpdate(GLFW_KEY_LAST, window.keyboard.keys);
     //TODO: improve non-scroll detection
@@ -122,11 +131,18 @@ void Window::update(){
         window.mouse.delta = glm::vec2(0.0);
     }
     window.mouse.deltaLast = window.mouse.delta;
-    
-    
-    
+#ifdef DEBUG
+    std::cout << "\tupdates: " << t.stop_reset_start() << "us\n";
+#endif
     glfwSwapBuffers(window.handle);
-    glfwPollEvents(); //TODO: add dt to this obj
+#ifdef DEBUG
+    std::cout << "\tbuffer swap: " << t.stop_reset_start() << "us\n";
+#endif
+    glfwPollEvents();
+#ifdef DEBUG
+    std::cout << "\tpoll events: " << t.stop() << "us\n";
+    std::cout << "\ttotal: " << tt.stop() << "us\n";
+#endif
 }
 
 void Window::buttonArrayUpdate(size_t n, Button *butts){

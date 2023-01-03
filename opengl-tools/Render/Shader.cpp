@@ -9,6 +9,10 @@
 #include "Shader.h"
 #include <glm/gtc/type_ptr.hpp>
 
+#ifdef DEBUG
+static uint32_t numShaders = 0;
+#endif
+
 Shader::Shader(){}
 
 Shader::~Shader(){}
@@ -35,6 +39,9 @@ const char* Shader::getShaderSource(string shad, string type){
 bool Shader::compileVertShader(GLuint& vShader, const char* vFileName){
     const char* vSource = getShaderSource(vFileName, "vert");
     vShader = glCreateShader(GL_VERTEX_SHADER);
+    #ifdef DEBUG
+    numShaders++;
+    #endif
     glShaderSource(vShader, 1, &vSource, NULL);
     glCompileShader(vShader);
     GLint status;
@@ -54,6 +61,9 @@ bool Shader::compileVertShader(GLuint& vShader, const char* vFileName){
         }
         cout << "\n";
         // Exit with failure.
+        #ifdef DEBUG
+        numShaders--;
+        #endif
         glDeleteShader(vShader); // Don't leak the shader.
         return false;
     }
@@ -64,6 +74,9 @@ bool Shader::compileFragShader(GLuint& fShader, const char* fFileName){
     const char* fSource = getShaderSource(fFileName, "frag");
 
     fShader = glCreateShader(GL_FRAGMENT_SHADER);
+    #ifdef DEBUG
+    numShaders++;
+    #endif
     glShaderSource(fShader, 1, &fSource, NULL);
     glCompileShader(fShader);
     GLint status;
@@ -84,6 +97,9 @@ bool Shader::compileFragShader(GLuint& fShader, const char* fFileName){
         cout << "\n";
         // Exit with failure.
         glDeleteShader(fShader); // Don't leak the shader.
+        #ifdef DEBUG
+        numShaders--;
+        #endif
         return false;
     }
     return true;
@@ -93,6 +109,9 @@ bool Shader::linkPrograms(GLuint& vShader, GLuint& fShader, GLuint& prog){
     bool flag = true;
     //create program object
     prog = glCreateProgram();
+    #ifdef DEBUG
+    numShaders++;
+    #endif
     //attach vert & frags
     glAttachShader(prog, vShader);
     glAttachShader(prog, fShader);
@@ -111,14 +130,26 @@ bool Shader::linkPrograms(GLuint& vShader, GLuint& fShader, GLuint& prog){
             cout << infoLog[i];
         }
         cout << endl;
+        //destroy individual shader objs
+        glDetachShader(prog, vShader);
+        glDetachShader(prog, fShader);
+        glDeleteShader(vShader);
+        glDeleteShader(fShader);
+        glDeleteProgram(prog);
+        #ifdef DEBUG
+        numShaders-=3;
+        #endif
     } else {
         cout << "Shader link successful!\n";
+        //destroy individual shader objs
+        glDetachShader(prog, vShader);
+        glDetachShader(prog, fShader);
+        glDeleteShader(vShader);
+        glDeleteShader(fShader);
+        #ifdef DEBUG
+        numShaders-=2;
+        #endif
     }
-    //destroy individual shader objs
-    glDetachShader(prog, vShader);
-    glDetachShader(prog, fShader);
-    glDeleteShader(vShader);
-    glDeleteShader(fShader);
     return flag;
 }
 
@@ -146,6 +177,9 @@ void Shader::unBind() const {
 
 // if this is called after program has already been destroyed, is there a problem?
 void Shader::destroy(){
+    #ifdef DEBUG
+    cout << "shader deleted, " << --numShaders << " remain..\n";
+    #endif
     glDeleteProgram(programId);
 }
 

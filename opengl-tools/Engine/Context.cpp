@@ -98,7 +98,7 @@ static void init_test_example(Environment& env){
     env.addEntity(new Chunk(0, glm::vec3(0, -1, 0)));
 }
 static void init_test_chunkscape(Environment& env){
-    ftime::stopwatch_start();
+    ftime::global_stopwatch_start();
     cout << "Loading test chunkscape...\n";
     env.cam->pos.y = 5;
     srand(0x36F72AD2);
@@ -108,7 +108,7 @@ static void init_test_chunkscape(Environment& env){
             env.addEntity(new Chunk(0, glm::vec3(i-(w/2), 0, j-(w/2))));
         }
     }
-    cout << "loading took " << ftime::stopwatch_read(ftime::SECONDS) << "s\n";
+    cout << "loading took " << ftime::global_stopwatch_read(ftime::SECONDS) << "s\n";
 }
 
 void context_init(){
@@ -131,7 +131,7 @@ static void SyncCamera(const Environment& env){
 }
 
 static void RenderEnvironment(const Environment& env){
-    double total_time = ftime::stopwatch_read(ftime::MICROSECONDS);
+    double total_time = ftime::global_stopwatch_read(ftime::MICROSECONDS);
     double render_time = 0;
     double math_time = 0;
     double ecs_time = 0;
@@ -139,30 +139,30 @@ static void RenderEnvironment(const Environment& env){
     SyncCamera(env);
     for (auto ep : env.entities){
         Entity& e = *(ep.second);
-        temp = ftime::stopwatch_read(ftime::MICROSECONDS);
+        temp = ftime::global_stopwatch_read(ftime::MICROSECONDS);
         if (e.hasComp(TransformType) && e.hasComp(RenderType)){
             auto & tcomp = e.comp<TransformComponent>();
             auto const& rcomp = e.comp<RenderComponent>();
-            temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
+            temp = ftime::global_stopwatch_read(ftime::MICROSECONDS) - temp;
             ecs_time += temp;
-            temp = ftime::stopwatch_read(ftime::MICROSECONDS);
+            temp = ftime::global_stopwatch_read(ftime::MICROSECONDS);
             auto const& model = tcomp.genModel();
-            temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
+            temp = ftime::global_stopwatch_read(ftime::MICROSECONDS) - temp;
             math_time += temp;
-            temp = ftime::stopwatch_read(ftime::MICROSECONDS);
+            temp = ftime::global_stopwatch_read(ftime::MICROSECONDS);
             state.shaders.at(rcomp.shaderID).bind();
             state.shaders.at(rcomp.shaderID).uMat4("uModel", model);
 //            static const glm::vec3 color(1.f,0.f,0.f);
 //            Shaders.at(rcomp.shaderID).uVec3("uColor", color); // test
             DrawMesh(state.mesh(rcomp.meshID));
-            temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
+            temp = ftime::global_stopwatch_read(ftime::MICROSECONDS) - temp;
             render_time += temp;
         } else {
-            temp = ftime::stopwatch_read(ftime::MICROSECONDS) - temp;
+            temp = ftime::global_stopwatch_read(ftime::MICROSECONDS) - temp;
             ecs_time += temp;
         }
     }
-    total_time = ftime::stopwatch_read(ftime::MICROSECONDS) - total_time;
+    total_time = ftime::global_stopwatch_read(ftime::MICROSECONDS) - total_time;
     cout << "Render time:\n\ttotal: " << total_time << "us\n\tmath: " << math_time << "us\n\tecs: " << ecs_time << "us\n\trender: " << render_time << "us\n";
 }
 
@@ -231,7 +231,7 @@ static void test_rotate(Environment& env, double dt){
 }
 #include <cmath>
 static void test_chunkscape(Environment& env, double dt){
-    cout << "entering cs test...\n";
+//    cout << "entering cs test...\n";
     for (auto& en : env.entities){
         auto& e = *en.second;
         auto const& tcomp = e.comp<TransformComponent>();
@@ -247,39 +247,43 @@ static void test_chunkscape(Environment& env, double dt){
 //
 //        }
 //    }
-    cout << "returning from cs test..\n";
+//    cout << "returning from cs test..\n";
 }
-
+static ftime::StopWatch loop_timer(ftime::SECONDS);
 void context_loop(){
-    ftime::stopwatch_start();
+    // TIME KEEPING
+    if (!loop_timer.running()){
+        loop_timer.start();
+    }
+    static ftime::StopWatch chunk_timer(ftime::MICROSECONDS);
+    static ftime::StopWatch controller_timer(ftime::MICROSECONDS);
+    static ftime::StopWatch window_timer(ftime::MICROSECONDS);
     while (!glfwWindowShouldClose(window.handle)){
 //        glfwWaitEventsTimeout(WAIT_TIME);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // wait events and clear buffer
         
         // ****************************TESTING********************************
         scene.update(dt);
-//        test_bounce(scene, dt);
-//        test_rotate(scene, dt);
-//        test_field(scene, dt);
-        double timer = ftime::stopwatch_read(ftime::NANOSECONDS);
+        
+        controller_timer.reset_start();
         test_controller(scene, dt);
-        timer = ftime::stopwatch_read(ftime::NANOSECONDS) - timer;
-        cout << "controller nanos: " << timer << "ns\n";
-        timer = ftime::stopwatch_read(ftime::MILLISECONDS);
+        cout << "controller time: " << controller_timer.stop() << "us\n";
+        
+        chunk_timer.reset_start();
         test_chunkscape(scene, dt);
-        timer = ftime::stopwatch_read(ftime::MILLISECONDS) - timer;
-        cout << "chunkscape nanos: " << timer << "ms\n";
-//        test_rotate(scene, dt);
-        timer = ftime::stopwatch_read(ftime::MILLISECONDS);
+        cout << "chunkscape time: " << chunk_timer.stop() << "us\n";
+        
         RenderEnvironment(scene);
-        timer = ftime::stopwatch_read(ftime::MILLISECONDS) - timer;
-        cout << "render nanos: " << timer << "ms\n------\n";
         // **************************END_TESTING******************************
-
+        
+//        window_timer.reset_start();
         window.update();
-        dt = ftime::stopwatch_stopstart(ftime::SECONDS);
+//        cout << "window time: " << window_timer.stop() << "us\n";
+        
+        dt = loop_timer.stop_reset_start();
+        cout << "\ntotal loop time: " << dt * 1000 << " ms\n";
         if (OUT_FPS){
-//            cout << 1/dt << "\n";
+            cout << 1/dt << " FPS\n----------------\n";
         }
     }
 }
