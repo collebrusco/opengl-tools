@@ -23,6 +23,9 @@ using namespace std;
 class Shader {
 private:
     GLuint programId;
+    bool compileFragShader(GLuint& fShader, const char* vFileName);
+    bool compileVertShader(GLuint& vShader, const char* fFileName);
+    bool linkPrograms(GLuint& vShader, GLuint& fShader, GLuint& prog);
     const char* getShaderSource(string shad, string type);
 public:
     Shader();

@@ -32,10 +32,9 @@ const char* Shader::getShaderSource(string shad, string type){
     return src.c_str();
 }
 
-bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
-    bool flag = true;
+bool Shader::compileVertShader(GLuint& vShader, const char* vFileName){
     const char* vSource = getShaderSource(vFileName, "vert");
-    GLuint vShader = glCreateShader(GL_VERTEX_SHADER);
+    vShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vShader, 1, &vSource, NULL);
     glCompileShader(vShader);
     GLint status;
@@ -58,12 +57,16 @@ bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
         glDeleteShader(vShader); // Don't leak the shader.
         return false;
     }
-    
+    return true;
+}
+
+bool Shader::compileFragShader(GLuint& fShader, const char* fFileName){
     const char* fSource = getShaderSource(fFileName, "frag");
 
-    GLuint fShader = glCreateShader(GL_FRAGMENT_SHADER);
+    fShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fShader, 1, &fSource, NULL);
     glCompileShader(fShader);
+    GLint status;
     glGetShaderiv(fShader, GL_COMPILE_STATUS, &status);
     if (status == GL_TRUE){
         cout << fFileName << " shader compiled sucessfully!" << endl;
@@ -83,9 +86,13 @@ bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
         glDeleteShader(fShader); // Don't leak the shader.
         return false;
     }
-    
+    return true;
+}
+
+bool Shader::linkPrograms(GLuint& vShader, GLuint& fShader, GLuint& prog){
+    bool flag = true;
     //create program object
-    GLuint prog = glCreateProgram();
+    prog = glCreateProgram();
     //attach vert & frags
     glAttachShader(prog, vShader);
     glAttachShader(prog, fShader);
@@ -112,7 +119,17 @@ bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
     glDetachShader(prog, fShader);
     glDeleteShader(vShader);
     glDeleteShader(fShader);
-    
+    return flag;
+}
+
+bool Shader::compileAndLink(const char* vFileName, const char* fFileName){
+    bool flag = true;
+    GLuint vShader, fShader;
+    assert(compileVertShader(vShader, vFileName));
+    assert(compileFragShader(fShader, fFileName));
+
+    GLuint prog;
+    linkPrograms(vShader, fShader, prog);
     Shader::programId = prog;
     
     return flag;

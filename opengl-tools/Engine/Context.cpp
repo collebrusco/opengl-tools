@@ -116,23 +116,8 @@ void context_init(){
     glClearColor(0.f, 0.f, 0.f, 0.f);
     glEnable(GL_DEPTH_TEST);
     
-//    Shaders.emplace_back("basic_vert_shader", "noise_frag_shader");
-//    Shaders.emplace_back("basic_vert_shader", "single_color_frag_shader");
-//
-//    Meshes.push_back(UploadMesh(TileMesh));
-//    Meshes.push_back(UploadMesh(TileOutlineMesh));
-//    Meshes.push_back(UploadMesh(CubeMesh));
-//    RAM_Mesh cubeMesh(TRIANGLES);
-//    MeshBuilder mb(cubeMesh);
-//    mb.addFace(glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(-0.5f, 0.5f, -0.5f), glm::vec3(0.5f, -0.5f, 0.5f));
-//    mb.addFace(glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.5f, -0.5f, -0.5f));
-//    //    mb.addFace(glm::vec3(-0.5, -0.5, 0), glm::vec3(0.5, -0.5, 0), glm::vec3(-0.5, 0.5, 0));
-//
-//    Meshes.push_back(UploadMesh(mb.getMesh()));
-    
     scene.init();
     init_test_chunkscape(scene);
-//    init_test_field(scene);
     
     window.setMouseGrabbed(true);
 }
