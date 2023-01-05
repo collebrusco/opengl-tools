@@ -117,11 +117,10 @@ public: //protected:
     }
     template <typename T>
     T& comp(){
-        ComponentType type;
-        T dummy;            // I dont love this solution, calling constructor to get ctype map key TODO: improve
-        type = dummy.type;
-        assert(this->hasComp(type));
-        return *((T*)components[type]);
+        // I dont love this solution, calling constructor to get ctype map key TODO: improve
+        T dummy;
+        assert(this->hasComp(dummy.type));
+        return *((T*)components[dummy.type]);
     }
 public:
     uint32_t ID; //todo private?
@@ -162,9 +161,7 @@ public:
         cam->setMouseControl(true);
     }
     void init(){
-//        entities[0] = new Entity(0);
-//        entities[0]->pushComponent(new RenderComponent(2, 0));
-//        entities[0]->pushComponent(new TransformComponent(glm::vec3(0.0, 0.0, -0.5), glm::vec3(0.0, 0.0, 0.f)));
+        
     }
     Entity& addEntity(){
         uint32_t ID = this->findEmptyID();

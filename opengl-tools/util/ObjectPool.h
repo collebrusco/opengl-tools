@@ -25,20 +25,9 @@ private:
     uint32_t active_count;
     uint32_t findEmptyIdx(){
         assert(!isFull());
-        static bool lr = true;
-        if (lr){
-            lr = !lr;
-            for (uint32_t i = 0; i < _size; i++){
-                if (!pool[i].active){
-                    return i;
-                }
-            }
-        } else {
-            lr = !lr;
-            for (uint32_t i = _size-1; i >= 0; i--){
-                if (!pool[i].active){
-                    return i;
-                }
+        for (uint32_t i = 0; i < _size; i++){
+            if (!pool[i].active){
+                return i;
             }
         }
         return -1;

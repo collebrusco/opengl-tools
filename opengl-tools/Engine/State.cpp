@@ -26,7 +26,7 @@ void State::initShaders(){
     shaders.emplace_back("vert_shader", "frag_shader");
 }
 
-void State::initMeshes(){\
+void State::initMeshes(){
     meshes.force(UploadMesh(TileMesh), TILE_MESH);
     meshes.force(UploadMesh(TileOutlineMesh), TILE_OUTLINE_MESH);
     meshes.force(UploadMesh(CubeMesh), CUBE_MESH);
